@@ -9,9 +9,10 @@ require("./db.js");
 const server = express();
 
 server.name = "API";
+server.timeout = 2000;
 
-server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-server.use(bodyParser.json({ limit: "50mb" }));
+server.use(express.urlencoded({ extended: true, limit: "50mb" }));
+server.use(express.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {

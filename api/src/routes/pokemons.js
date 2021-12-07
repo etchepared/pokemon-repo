@@ -8,10 +8,13 @@ router.get("/pokemons", async (req, res, next) => {
   //Imagen Nombre Tipos
 
   if (req.query.name) {
+    const { name } = req.query;
+    const lowerCaseName = name.toLowerCase();
+
     try {
       const myPokemons = await Pokemon.findOne({
         where: {
-          name: { [Op.like]: req.query.name },
+          name: { [Op.like]: lowerCaseName },
         },
         include: [{ model: Poketype, attributes: ["name"] }],
       });
@@ -20,7 +23,7 @@ router.get("/pokemons", async (req, res, next) => {
       }
 
       const pokemonChosen = await axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${req.query.name}`)
+        .get(`https://pokeapi.co/api/v2/pokemon/${lowerCaseName}`)
         .then((d) => d.data)
         .catch((error) => error);
 
@@ -87,9 +90,9 @@ router.get("/pokemons", async (req, res, next) => {
 
 router.get("/pokemons/:idPokemon", async (req, res, next) => {
   const { idPokemon } = req.params;
-
+  //idPokemon.length > 0 && idPokemon.length < 4;
   try {
-    if (idPokemon.length > 0 && idPokemon.length < 4) {
+    if (idPokemon > 0 && idPokemon < 899) {
       const pokemonChosen = await axios
         .get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
         .then((d) => d.data);
@@ -114,7 +117,10 @@ router.get("/pokemons/:idPokemon", async (req, res, next) => {
       },
       include: [{ model: Poketype, attributes: ["name"] }],
     });
-    return res.json(myPokemons);
+    if (myPokemons) {
+      return res.json(myPokemons);
+    }
+    return res.send("Id not found");
   } catch (error) {
     next(error);
   }
@@ -126,11 +132,10 @@ router.post("/pokemons/create", async (req, res, next) => {
       req.body;
 
     const myPokemon = await Pokemon.create({
-      name,
+      name: name.toLowerCase(),
       image:
         image ||
         "https://cdn.pixabay.com/photo/2016/07/13/08/31/pokemon-1513925_960_720.jpg",
-      //types,
       hp,
       strength,
       defense,

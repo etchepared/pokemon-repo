@@ -6,113 +6,152 @@ const { Sequalize, Op } = require("sequelize");
 //IMPORTANTE: Dentro de la Ruta Principal mostrar pokemons traidos de la API y la base de datos. Limitar el resultado a 40 pokemons.
 router.get("/pokemons", async (req, res, next) => {
   //Imagen Nombre Tipos
-  try {
-    let apiPokemons1 = await axios
-      //.get("https://pokeapi.co/api/v2/pokemon")
-      .get("https://pokeapi.co/api/v2/pokemon?limit=20")
-      .then((d) => d.data.results);
-    //let apiPokemons2 = await axios.get(apiPokemons1.next).then((d) => d.data);
-    //let pokeLinks = [...apiPokemons1.results, ...apiPokemons2.results];
-    //console.log(pokeLinks);
-    // apiPokemons1 y 2 guardarían los primeros 40 pokemons
-    // pero necesito entrar a sus links para cargar la info
-    // armo un objeto nuevo creadole propiedades con los nombres y datos de los pokemones y devuelvo eso
 
-    const data = apiPokemons1.map(async (p) => {
-      const aver = await axios.get(p.url);
-      //console.log(aver.data);
-      return aver.data;
+  if (req.query.name) {
+    try {
+      const myPokemons = await Pokemon.findOne({
+        where: {
+          name: { [Op.like]: req.query.name },
+        },
+        include: [{ model: Poketype, attributes: ["name"] }],
+      });
+      if (myPokemons) {
+        return res.json(myPokemons);
+      }
+
+      const pokemonChosen = await axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${req.query.name}`)
+        .then((d) => d.data)
+        .catch((error) => error);
+
+      const pokeInfo = {
+        id: pokemonChosen.id,
+        name: pokemonChosen.name,
+        image: pokemonChosen.sprites.other["dream_world"]["front_default"],
+        types: pokemonChosen.types.map((p) => p.type.name),
+        hp: pokemonChosen.stats[0].base_stat,
+        strength: pokemonChosen.stats[1].base_stat,
+        defense: pokemonChosen.stats[2].base_stat,
+        speed: pokemonChosen.stats[5].base_stat,
+        height: pokemonChosen.height,
+        weight: pokemonChosen.weight,
+      };
+      return res.json(pokeInfo);
+    } catch (error) {
+      res.status(400).send("Pokemon not found");
+    }
+  }
+  try {
+    const apiPokemons = await axios
+      .get("https://pokeapi.co/api/v2/pokemon?limit=10")
+      .then((d) => d.data.results);
+
+    const pokeData = apiPokemons.map(async (p) => {
+      const temp = await axios.get(p.url);
+      if (temp) {
+        const pokeInfo = {
+          id: temp.data.id,
+          image: temp.data.sprites.other["official-artwork"]["front_default"],
+          name: temp.data.name,
+          types: temp.data.types.map((p) => p.type.name),
+          strength: temp.data.stats[1].base_stat,
+        };
+        return pokeInfo;
+      }
     });
 
-    const results = await Promise.all(data);
-    //console.log(data);
+    const pokeResults = await Promise.all(pokeData);
 
-    console.log(results);
-    return res.setTimeout(1000).json(results);
+    const dbPokemons = await Pokemon.findAll({
+      include: [{ model: Poketype, attributes: ["name"] }],
+    });
+    console.log(dbPokemons);
+    if (dbPokemons.length) {
+      const { id, image, name, poketypes, strength } = dbPokemons[0];
+
+      const myPokemons = {
+        id,
+        image,
+        name,
+        types: poketypes,
+        strength,
+      };
+      return res.json(pokeResults.concat(myPokemons));
+    }
+
+    return res.json(pokeResults);
   } catch (error) {
-    //console.log(error, "este es el error");
     next(error);
   }
 });
-// let pokeNames = pokeLinks.map(async (p) => {
-//   axios
-//     .all([await axios.get(`https://pokeapi.co/api/v2/pokemon/${p.name}`)])
-//     .then((d) => d.data);
-// });
-//
-// let pokemons = pokeLinks.map(async (p) => {
-//   await axios.get(p.url).then(p.data);
-//   return p.data;
-// });
-// console.log(pokemons);
 
-// router.get("/pokemons", async (req, res, next) => {
-//   //Imagen Nombre Tipos
-//   try {
-//     let apiPokemons1 = await axios
-//       .get("https://pokeapi.co/api/v2/pokemon")
-//       .then((d) => d.data);
-//     let apiPokemons2 = await axios
-//       .get(apiPokemons1.next)
-//       .then((d) => d.data.results);
-//     // apiPokemons1 y 2 guardarían los primeros 40 pokemons
-//     // pero necesito entrar a sus links para cargar la info
-//     // armo un objeto nuevo creadole propiedades con los nombres y datos de los pokemones y devuelvo eso
-//     console.log(apiPokemons1);
-//     let results1 = apiPokemons1.results.map((p) => {
-//       return {
-//         name: p.name,
-//       };
-//     });
-//     //console.log(results1);
-//     let results2 = apiPokemons2.map((p) => {
-//       return {
-//         name: p.name,
-//       };
-//     });
-//     res.send(results1.concat(results2));
+router.get("/pokemons/:idPokemon", async (req, res, next) => {
+  const { idPokemon } = req.params;
 
-//     // let apiPokemons = {};
-//     // let getPokemons1 = apiPokemons1.results.map((p) => {
-//     //   await axios.get(p.url).then((d) => d.data);
-//     // });
-//     // let getPokemons2 = apiPokemons2.map((p) => {
-//     //   await axios.get(p.url).then((d) => d.data);
-//     // });
-//     // console.log(getPokemons1);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+  try {
+    if (idPokemon.length > 0 && idPokemon.length < 4) {
+      const pokemonChosen = await axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
+        .then((d) => d.data);
 
-// router.get("/pokemons/:idPokemon", async (req, res, next) => {
-//   try {
-//     const { idPokemon } = req.params;
+      const pokeInfo = {
+        id: pokemonChosen.id,
+        name: pokemonChosen.name,
+        image: pokemonChosen.sprites.other["dream_world"]["front_default"],
+        types: pokemonChosen.types.map((p) => p.type.name),
+        hp: pokemonChosen.stats[0].base_stat,
+        strength: pokemonChosen.stats[1].base_stat,
+        defense: pokemonChosen.stats[2].base_stat,
+        speed: pokemonChosen.stats[5].base_stat,
+        height: pokemonChosen.height,
+        weight: pokemonChosen.weight,
+      };
+      return res.json(pokeInfo);
+    }
+    const myPokemons = await Pokemon.findOne({
+      where: {
+        id: idPokemon,
+      },
+      include: [{ model: Poketype, attributes: ["name"] }],
+    });
+    return res.json(myPokemons);
+  } catch (error) {
+    next(error);
+  }
+});
 
-//     if (parseInt(idPokemon) < 900 && parseInt(idPokemon) > 0) {
-//       let pokemonChosen = await axios
-//         .get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
-//         .then((d) => {
-//           d.data;
-//         });
-//       let infoPokemon = {
-//         name: pokemonChosen.name,
-//         image: pokemonChosen.sprites.other.official-artwork.front_default,
-//         types: pokemonChosen.types.map((p) => p.type.name),
-//         id: pokemonChosen.id,
-//         hp: pokemonChosen.stats[0].base_stat,
-//         strength: pokemonChosen.
-//         id: pokemonChosen
-//         id: pokemonChosen
-//         id: pokemonChosen
-//         id: pokemonChosen
-//         name: p.name,
-//       };
-//     }
+router.post("/pokemons/create", async (req, res, next) => {
+  try {
+    const { name, image, types, hp, strength, defense, speed, height, weight } =
+      req.body;
 
-//     res.send();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    const myPokemon = await Pokemon.create({
+      name,
+      image:
+        image ||
+        "https://cdn.pixabay.com/photo/2016/07/13/08/31/pokemon-1513925_960_720.jpg",
+      //types,
+      hp,
+      strength,
+      defense,
+      speed,
+      height,
+      weight,
+    });
+    types.map(async (t) => {
+      const [postTypes, succes] = await Poketype.findOrCreate({
+        where: {
+          name: t,
+        },
+        defaults: { name: t },
+      });
+      myPokemon.addPoketype(postTypes);
+    });
+
+    return res.status(201).send(myPokemon);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

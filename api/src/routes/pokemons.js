@@ -56,7 +56,7 @@ router.get("/pokemons", async (req, res, next) => {
           id: temp.data.id,
           image: temp.data.sprites.other["official-artwork"]["front_default"],
           name: temp.data.name,
-          types: temp.data.types.map((p) => p.type.name),
+          types: temp.data.types.map((p) => p.type),
           strength: temp.data.stats[1].base_stat,
         };
         return pokeInfo;

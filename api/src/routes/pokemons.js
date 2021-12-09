@@ -68,7 +68,7 @@ router.get("/pokemons", async (req, res, next) => {
     const dbPokemons = await Pokemon.findAll({
       include: [{ model: Poketype, attributes: ["name"] }],
     });
-    console.log(dbPokemons);
+
     if (dbPokemons.length) {
       const { id, image, name, poketypes, strength } = dbPokemons[0];
 

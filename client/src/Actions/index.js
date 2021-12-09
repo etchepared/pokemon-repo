@@ -8,3 +8,17 @@ export const setPokemons = (payload) => async (dispatch) => {
     })
   );
 };
+
+export const sortByName = (order) => {
+  return {
+    type: "SORT_BY_NAME",
+    payload: order,
+  };
+};
+
+export const sortByStrength = (order) => {
+  return {
+    type: "SORT_BY_STRENGTH",
+    payload: order,
+  };
+};

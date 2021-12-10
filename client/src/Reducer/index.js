@@ -38,6 +38,9 @@ export const Reducer = (state = initialState, action) => {
         trappedPokemons: orderByStrength,
       };
 
+    case "CATCH_POKEMON":
+      return { ...state, trappedPokemons: action.payload };
+
     default:
       return state;
   }

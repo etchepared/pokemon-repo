@@ -18,7 +18,7 @@ const Pokemons = () => {
     <div className="container">
       {pokemons.map((p) => {
         return (
-          <div className="pokemon">
+          <div key={p.id} className="pokemon">
             <h3>{p.name}</h3>
             <div className="pokemonImage">
               <img src={p.image} alt={p.name} />

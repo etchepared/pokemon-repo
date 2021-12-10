@@ -22,3 +22,19 @@ export const sortByStrength = (order) => {
     payload: order,
   };
 };
+
+export function catchPokemon(search) {
+  return function (dispatch) {
+    axios
+      .get(`localhost:3001/pokemons?name=${search}`)
+      .then((response) => {
+        dispatch({
+          type: "CATCH_POKEMON",
+          payload: response,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}

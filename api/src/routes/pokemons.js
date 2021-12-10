@@ -31,7 +31,8 @@ router.get("/pokemons", async (req, res, next) => {
         id: pokemonChosen.id,
         name: pokemonChosen.name,
         image: pokemonChosen.sprites.other["dream_world"]["front_default"],
-        types: pokemonChosen.types.map((p) => p.type.name),
+        types: pokemonChosen.types.map((p) => {
+          return {name: p.type.name}}),
         hp: pokemonChosen.stats[0].base_stat,
         strength: pokemonChosen.stats[1].base_stat,
         defense: pokemonChosen.stats[2].base_stat,

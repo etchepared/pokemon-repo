@@ -12,6 +12,7 @@ export default function SortByName() {
 
   return (
     <select name="select" onChange={onSelectChange}>
+      <option value="0">Sort by Name</option>
       <option value="A-Z">Order A-Z</option>
       <option value="Z-A">Order Z-A</option>
     </select>

@@ -10,6 +10,7 @@ export default function SortByStrength() {
   }
   return (
     <select name="select" onChange={onSelectChange}>
+      <option value="0">Sort by Strength</option>
       <option value="MENOR">- Strength</option>
       <option value="MAYOR">+ Strength</option>
     </select>

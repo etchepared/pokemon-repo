@@ -26,11 +26,11 @@ export const sortByStrength = (order) => {
 export function catchPokemon(search) {
   return function (dispatch) {
     axios
-      .get(`localhost:3001/pokemons?name=${search}`)
-      .then((response) => {
+      .get(`http://localhost:3001/pokemons?name=${search}`)
+      .then((res) => {
         dispatch({
           type: "CATCH_POKEMON",
-          payload: response,
+          payload: res.data,
         });
       })
       .catch((error) => {

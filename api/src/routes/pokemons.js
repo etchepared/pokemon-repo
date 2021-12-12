@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Pokemon, Poketype } = require("../db");
+const { Pokemon, Type } = require("../db");
 const axios = require("axios");
 const router = Router();
 const { Sequalize, Op } = require("sequelize");
@@ -16,9 +16,10 @@ router.get("/pokemons", async (req, res, next) => {
         where: {
           name: { [Op.like]: lowerCaseName },
         },
-        include: [{ model: Poketype, attributes: ["name"] }],
+        include: [{ model: Type, attributes: ["name"] }],
       });
       if (myPokemons) {
+        console.log(myPokemons);
         return res.json(myPokemons);
       }
 
@@ -32,7 +33,8 @@ router.get("/pokemons", async (req, res, next) => {
         name: pokemonChosen.name,
         image: pokemonChosen.sprites.other["dream_world"]["front_default"],
         types: pokemonChosen.types.map((p) => {
-          return {name: p.type.name}}),
+          return { name: p.type.name };
+        }),
         hp: pokemonChosen.stats[0].base_stat,
         strength: pokemonChosen.stats[1].base_stat,
         defense: pokemonChosen.stats[2].base_stat,
@@ -67,17 +69,17 @@ router.get("/pokemons", async (req, res, next) => {
     const pokeResults = await Promise.all(pokeData);
 
     const dbPokemons = await Pokemon.findAll({
-      include: [{ model: Poketype, attributes: ["name"] }],
+      include: [{ model: Type, attributes: ["name"] }],
     });
 
     if (dbPokemons.length) {
-      const { id, image, name, poketypes, strength } = dbPokemons[0];
+      const { id, image, name, types, strength } = dbPokemons[0];
 
       const myPokemons = {
         id,
         image,
         name,
-        types: poketypes,
+        types,
         strength,
       };
       return res.json(pokeResults.concat(myPokemons));
@@ -116,7 +118,7 @@ router.get("/pokemons/:idPokemon", async (req, res, next) => {
       where: {
         id: idPokemon,
       },
-      include: [{ model: Poketype, attributes: ["name"] }],
+      include: [{ model: Type, attributes: ["name"] }],
     });
     if (myPokemons) {
       return res.json(myPokemons);
@@ -145,13 +147,13 @@ router.post("/pokemons/create", async (req, res, next) => {
       weight,
     });
     types.map(async (t) => {
-      const [postTypes, succes] = await Poketype.findOrCreate({
+      const [postTypes, succes] = await Type.findOrCreate({
         where: {
           name: t,
         },
         defaults: { name: t },
       });
-      myPokemon.addPoketype(postTypes);
+      myPokemon.addType(postTypes);
     });
 
     return res.status(201).send(myPokemon);

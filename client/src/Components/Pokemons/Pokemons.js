@@ -13,8 +13,8 @@ const Pokemons = () => {
   const pokemons = useSelector((store) => {
     return store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
-  
-  if(Array.isArray(pokemons)){
+
+  if (Array.isArray(pokemons)) {
     return (
       <div className="container">
         {pokemons.map((p) => {
@@ -39,15 +39,15 @@ const Pokemons = () => {
     <div className="container">
       <div key={pokemons.id} className="pokemon">
         <h3>{pokemons.name}</h3>
-          <div className="pokemonImage">
-            <img src={pokemons.image} alt={pokemons.name} />
-          </div>
-          <div className="mapTypes">
-            {pokemons.types.map((t) => {
-              return <h4 key={t.id}>{t.name}</h4>;
-            })}
-          </div>
+        <div className="pokemonImage">
+          <img src={pokemons.image} alt={pokemons.name} />
         </div>
+        <div className="mapTypes">
+          {pokemons.types.map((t) => {
+            return <h4 key={t.id}>{t.name}</h4>;
+          })}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 const initialState = {
-  trappedPokemons: [],
+  trappedPokemons: [], //todos
+  catchedPokemon: null, //agua // all
+  filteredPokemons: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -20,7 +22,7 @@ export const Reducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        trappedPokemons: orderedPokemons,
+        catchedPokemon: orderedPokemons,
       };
 
     case "SORT_BY_STRENGTH":
@@ -35,11 +37,39 @@ export const Reducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        trappedPokemons: orderByStrength,
+        catchedPokemon: orderByStrength,
       };
 
     case "CATCH_POKEMON":
-      return { ...state, trappedPokemons: action.payload };
+      return { ...state, catchedPokemon: action.payload };
+
+    case "FILTER_BY_TYPE":
+      let filterByType = [...state.trappedPokemons];
+      if (action.payload === "all") {
+        return { ...state, catchedPokemon: filterByType };
+      }
+
+      let filteredByType = filterByType.filter((f) => {
+        return f.types.includes(action.payload);
+      });
+
+      return { ...state, catchedPokemon: filteredByType };
+
+    case "FILTER_CREATED":
+      let allPokemons = [...state.trappedPokemons];
+      if (action.payload === "all") {
+        return { ...state, catchedPokemon: allPokemons };
+      }
+      if (action.payload === "api") {
+        let api = allPokemons.filter((f) => {
+          return !f.id.length;
+        });
+        return { ...state, catchedPokemon: api };
+      }
+      let filtered = allPokemons.filter((f) => {
+        return f.id.length > 5;
+      });
+      return { ...state, catchedPokemon: filtered };
 
     default:
       return state;

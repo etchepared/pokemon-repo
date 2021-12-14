@@ -11,9 +11,12 @@ const Pokemons = () => {
   }, [dispatch]); //esto monta en el initialState del reducer lo que diga la funcion setPokemons
 
   const pokemons = useSelector((store) => {
-    return store.trappedPokemons;
+    return store.catchedPokemon || store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
-
+  if (!pokemons) {
+    return <div className="error">Pokemon no encontrado</div>;
+  }
+  console.log(pokemons);
   if (Array.isArray(pokemons)) {
     return (
       <div className="container">
@@ -26,7 +29,7 @@ const Pokemons = () => {
               </div>
               <div className="mapTypes">
                 {p.types.map((t) => {
-                  return <h4 key={t.id}>{t["name"]}</h4>;
+                  return <h4 key={p.types.indexOf(t) + 1}>{t}</h4>;
                 })}
               </div>
             </div>
@@ -44,7 +47,7 @@ const Pokemons = () => {
         </div>
         <div className="mapTypes">
           {pokemons.types.map((t) => {
-            return <h4 key={t.id}>{t.name}</h4>;
+            return <h4 key={pokemons.types.indexOf(t) + 1}>{t}</h4>;
           })}
         </div>
       </div>

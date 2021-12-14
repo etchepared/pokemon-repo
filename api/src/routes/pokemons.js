@@ -18,9 +18,22 @@ router.get("/pokemons", async (req, res, next) => {
         },
         include: [{ model: Type, attributes: ["name"] }],
       });
+
       if (myPokemons) {
-        console.log(myPokemons);
-        return res.json(myPokemons);
+        return res.json({
+          name: myPokemons.name,
+          id: myPokemons.id,
+          hp: myPokemons.hp,
+          strength: myPokemons.strength,
+          defense: myPokemons.defense,
+          speed: myPokemons.speed,
+          height: myPokemons.height,
+          weight: myPokemons.weight,
+          image: myPokemons.image,
+          types: myPokemons.types.map((p) => {
+            return p.name;
+          }),
+        });
       }
 
       const pokemonChosen = await axios
@@ -33,7 +46,7 @@ router.get("/pokemons", async (req, res, next) => {
         name: pokemonChosen.name,
         image: pokemonChosen.sprites.other["dream_world"]["front_default"],
         types: pokemonChosen.types.map((p) => {
-          return { name: p.type.name };
+          return p.type.name;
         }),
         hp: pokemonChosen.stats[0].base_stat,
         strength: pokemonChosen.stats[1].base_stat,
@@ -44,7 +57,7 @@ router.get("/pokemons", async (req, res, next) => {
       };
       return res.json(pokeInfo);
     } catch (error) {
-      res.status(400).send("Pokemon not found");
+      res.status(400).send({ error: "Pokemon not found" });
     }
   }
   try {
@@ -59,7 +72,9 @@ router.get("/pokemons", async (req, res, next) => {
           id: temp.data.id,
           image: temp.data.sprites.other["official-artwork"]["front_default"],
           name: temp.data.name,
-          types: temp.data.types.map((p) => p.type),
+          types: temp.data.types.map((p) => {
+            return p.type.name;
+          }),
           strength: temp.data.stats[1].base_stat,
         };
         return pokeInfo;
@@ -79,7 +94,9 @@ router.get("/pokemons", async (req, res, next) => {
         id,
         image,
         name,
-        types,
+        types: types.map((p) => {
+          return p.name;
+        }),
         strength,
       };
       return res.json(pokeResults.concat(myPokemons));
@@ -121,7 +138,20 @@ router.get("/pokemons/:idPokemon", async (req, res, next) => {
       include: [{ model: Type, attributes: ["name"] }],
     });
     if (myPokemons) {
-      return res.json(myPokemons);
+      return res.json({
+        name: myPokemons.name,
+        id: myPokemons.id,
+        hp: myPokemons.hp,
+        strength: myPokemons.strength,
+        defense: myPokemons.defense,
+        speed: myPokemons.speed,
+        height: myPokemons.height,
+        weight: myPokemons.weight,
+        image: myPokemons.image,
+        types: myPokemons.types.map((p) => {
+          return p.name;
+        }),
+      });
     }
     return res.send("Id not found");
   } catch (error) {

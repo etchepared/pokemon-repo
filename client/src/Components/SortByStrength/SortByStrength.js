@@ -6,6 +6,7 @@ export default function SortByStrength() {
   const dispatch = useDispatch();
 
   function onSelectChange(e) {
+    e.preventDefault();
     dispatch(sortByStrength(e.target.value));
   }
   return (

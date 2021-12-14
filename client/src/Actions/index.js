@@ -34,7 +34,21 @@ export function catchPokemon(search) {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error, "Pokemon not found");
       });
   };
 }
+
+export const filterByType = (typeSelected) => {
+  return {
+    type: "FILTER_BY_TYPE",
+    payload: typeSelected.toLowerCase(),
+  };
+};
+
+export const filterCreated = (selected) => {
+  return {
+    type: "FILTER_CREATED",
+    payload: selected.toLowerCase(),
+  };
+};

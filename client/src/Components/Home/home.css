@@ -1,0 +1,18 @@
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.left img {
+  display: block;
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 90px;
+  height: 90px;
+}
+
+.rigth {
+  display: flex;
+  padding-left: 20%;
+}

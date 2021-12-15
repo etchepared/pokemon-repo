@@ -52,3 +52,17 @@ export const filterCreated = (selected) => {
     payload: selected.toLowerCase(),
   };
 };
+
+export const selectedPokemon = (selected) => async (dispatch) => {
+  axios
+    .get(`http://localhost:3001/pokemons/${selected}`)
+    .then((res) =>
+      dispatch({
+        type: "POKEMON_DETAIL",
+        payload: res.data.id,
+      })
+    )
+    .catch((error) => {
+      console.log(error, "Pokemon not found");
+    });
+};

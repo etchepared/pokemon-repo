@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import PokeGo from "../MyImages/PokeGo.png";
 import SortByName from "../SortByName/SortByName.js";
 import Pokemons from "../Pokemons/Pokemons.js";
 import SortByStrength from "../SortByStrength/SortByStrength.js";
@@ -11,21 +9,14 @@ import "./home.css";
 
 const Home = () => {
   return (
-    <div className="container">
+    <div className="homeContainer">
       <div>
-        <div className="navbar">
-          <div className="left">
-            <Link to="/Home">
-              <img src={PokeGo} alt="Home" />
-            </Link>
-          </div>
-          <div className="rigth">
-            <CatchPokemon />
-            <SortByName />
-            <SortByStrength />
-            <FilterByType />
-            <FilterCreated />
-          </div>
+        <div className="center">
+          <CatchPokemon />
+          <SortByName />
+          <SortByStrength />
+          <FilterByType />
+          <FilterCreated />
         </div>
         <Pokemons />
       </div>

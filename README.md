@@ -112,10 +112,10 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 **Ruta de detalle de Pokemon**: debe contener
 
-- [ ] Los campos mostrados en la ruta principal para cada pokemon (imagen, nombre y tipos)
+- [x] Los campos mostrados en la ruta principal para cada pokemon (imagen, nombre y tipos)
 - [ ] Número de Pokemon (id)
-- [ ] Estadísticas (vida, fuerza, defensa, velocidad)
-- [ ] Altura y peso
+- [x] Estadísticas (vida, fuerza, defensa, velocidad)
+- [x] Altura y peso
 
 **Ruta de creación**: debe contener
 

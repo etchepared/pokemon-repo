@@ -70,12 +70,17 @@ router.get("/pokemons", async (req, res, next) => {
       if (temp) {
         const pokeInfo = {
           id: temp.data.id,
-          image: temp.data.sprites.other["official-artwork"]["front_default"],
           name: temp.data.name,
+          image: temp.data.sprites.other["official-artwork"]["front_default"],
           types: temp.data.types.map((p) => {
             return p.type.name;
           }),
+          hp: temp.data.stats[0].base_stat,
           strength: temp.data.stats[1].base_stat,
+          defense: temp.data.stats[2].base_stat,
+          speed: temp.data.stats[5].base_stat,
+          height: temp.data.height,
+          weight: temp.data.weight,
         };
         return pokeInfo;
       }
@@ -88,7 +93,18 @@ router.get("/pokemons", async (req, res, next) => {
     });
 
     if (dbPokemons.length) {
-      const { id, image, name, types, strength } = dbPokemons[0];
+      const {
+        id,
+        image,
+        name,
+        types,
+        hp,
+        strength,
+        defense,
+        speed,
+        height,
+        weight,
+      } = dbPokemons[0];
 
       const myPokemons = {
         id,
@@ -98,6 +114,11 @@ router.get("/pokemons", async (req, res, next) => {
           return p.name;
         }),
         strength,
+        hp,
+        defense,
+        speed,
+        height,
+        weight,
       };
       return res.json(pokeResults.concat(myPokemons));
     }

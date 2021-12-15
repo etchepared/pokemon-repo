@@ -1,5 +1,6 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { setPokemons } from "../../Actions";
 import "./pokemons.css";
 
@@ -23,15 +24,17 @@ const Pokemons = () => {
         {pokemons.map((p) => {
           return (
             <div key={p.id} className="pokemon">
-              <h3>{p.name}</h3>
-              <div className="pokemonImage">
-                <img src={p.image} alt={p.name} />
-              </div>
-              <div className="mapTypes">
-                {p.types.map((t) => {
-                  return <h4 key={p.types.indexOf(t) + 1}>{t}</h4>;
-                })}
-              </div>
+              <Link to={`/${p.id}/detail`}>
+                <h3>{p.name}</h3>
+                <div className="pokemonImage">
+                  <img src={p.image} alt={p.name} />
+                </div>
+                <div className="mapTypes">
+                  {p.types.map((t) => {
+                    return <h4 key={p.types.indexOf(t) + 1}>{t}</h4>;
+                  })}
+                </div>
+              </Link>
             </div>
           );
         })}

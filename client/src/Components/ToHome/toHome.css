@@ -1,0 +1,13 @@
+.containerToHome {
+  position: flex;
+}
+
+.pokego {
+  display: flex;
+  justify-content: flex-start;
+
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 90px;
+  height: 90px;
+}

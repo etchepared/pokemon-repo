@@ -71,6 +71,15 @@ export const Reducer = (state = initialState, action) => {
       });
       return { ...state, catchedPokemon: filtered };
 
+    case "POKEMON_DETAIL":
+      let detail = [...state.trappedPokemons];
+      detail = detail.find((p) => p.id === action.payload);
+
+      return { ...state, catchedPokemon: detail };
+
+    // case "POKEMON_DETAIL":
+    //   return { ...state, detailPokemon: action.payload };
+
     default:
       return state;
   }

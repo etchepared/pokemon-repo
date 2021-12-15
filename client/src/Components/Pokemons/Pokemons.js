@@ -44,15 +44,17 @@ const Pokemons = () => {
   return (
     <div className="container">
       <div key={pokemons.id} className="pokemon">
-        <h3>{pokemons.name}</h3>
-        <div className="pokemonImage">
-          <img src={pokemons.image} alt={pokemons.name} />
-        </div>
-        <div className="mapTypes">
-          {pokemons.types.map((t) => {
-            return <h4 key={pokemons.types.indexOf(t) + 1}>{t}</h4>;
-          })}
-        </div>
+        <Link to={`/${pokemons.id}/detail`}>
+          <h3>{pokemons.name}</h3>
+          <div className="pokemonImage">
+            <img src={pokemons.image} alt={pokemons.name} />
+          </div>
+          <div className="mapTypes">
+            {pokemons.types.map((t) => {
+              return <h4 key={pokemons.types.indexOf(t) + 1}>{t}</h4>;
+            })}
+          </div>
+        </Link>
       </div>
     </div>
   );

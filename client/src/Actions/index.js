@@ -66,3 +66,12 @@ export const selectedPokemon = (selected) => async (dispatch) => {
       console.log(error, "Pokemon not found");
     });
 };
+
+export const setTypes = (payload) => async (dispatch) => {
+  axios.get("http://localhost:3001/types").then((res) =>
+    dispatch({
+      type: "POKEMON_TYPES",
+      payload: res.data,
+    })
+  );
+};

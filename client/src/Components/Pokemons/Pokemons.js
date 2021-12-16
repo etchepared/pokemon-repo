@@ -1,15 +1,19 @@
-import { React, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { React } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setPokemons } from "../../Actions";
+
 import "./pokemons.css";
 
 const Pokemons = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setPokemons());
-  }, [dispatch]); //esto monta en el initialState del reducer lo que diga la funcion setPokemons
+  // useEffect(() => {
+  //   dispatch(setPokemons());
+  // }, [dispatch]); //esto monta en el initialState del reducer lo que diga la funcion setPokemons
+
+  // useEffect(() => {
+  //   dispatch(setTypes());
+  // }, [dispatch]);
 
   const pokemons = useSelector((store) => {
     return store.catchedPokemon || store.trappedPokemons;
@@ -17,7 +21,7 @@ const Pokemons = () => {
   if (!pokemons) {
     return <div className="error">Pokemon no encontrado</div>;
   }
-  console.log(pokemons);
+  //console.log(pokemons);
   if (Array.isArray(pokemons)) {
     return (
       <div className="container">

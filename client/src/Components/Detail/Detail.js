@@ -1,25 +1,33 @@
-import { React, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { React } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectedPokemon } from "../../Actions";
 import "./detail.css";
 
 const Detail = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(selectedPokemon(id));
-  }, [dispatch, id]); //esto monta en el initialState del reducer lo que diga la funcion setPokemons
+  // useEffect(() => {
+  //   dispatch(selectedPokemon(id));
+  // }, [dispatch, id]); //esto monta en el initialState del reducer lo que diga la funcion setPokemons
 
-  const pokemon = useSelector((store) => {
-    return store.catchedPokemon;
+  let pokemon = useSelector((store) => {
+    return store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
+  let pokemon2 = useSelector((store) => {
+    return store.catchedPokemon;
+  });
+  if (pokemon2) {
+    pokemon = pokemon.concat(pokemon2);
+  }
+
+  pokemon = pokemon.find((p) => p.id == id);
+
   if (!pokemon) {
     return <div className="error">Pokemon no encontrado</div>;
   }
-
+  //console.log(pokemon);
   return (
     <div className="container">
       <div key={pokemon.id} className="pokemon">

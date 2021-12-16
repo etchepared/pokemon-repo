@@ -133,7 +133,8 @@ router.get("/pokemons/:idPokemon", async (req, res, next) => {
   const { idPokemon } = req.params;
   //idPokemon.length > 0 && idPokemon.length < 4;
   try {
-    if (idPokemon > 0 && idPokemon < 899) {
+    // if (idPokemon > 0 && idPokemon < 899) {
+    if (!isNaN(idPokemon)) {
       const pokemonChosen = await axios
         .get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
         .then((d) => d.data);

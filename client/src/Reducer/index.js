@@ -2,12 +2,17 @@ const initialState = {
   trappedPokemons: [], //todos
   catchedPokemon: null, //agua // all
   filteredPokemons: [],
+  types: [],
 };
 
 export const Reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_POKEMONS":
-      return { ...state, trappedPokemons: action.payload };
+      return {
+        ...state,
+        trappedPokemons: action.payload,
+        catchedPokemon: null,
+      };
 
     case "SORT_BY_NAME":
       let orderedPokemons = [...state.trappedPokemons];
@@ -82,6 +87,9 @@ export const Reducer = (state = initialState, action) => {
       detail = detail.find((p) => p.id === action.payload);
 
       return { ...state, catchedPokemon: detail };
+
+    case "POKEMON_TYPES":
+      return { ...state, types: action.payload };
 
     default:
       return state;

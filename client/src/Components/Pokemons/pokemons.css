@@ -3,6 +3,10 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.page {
+  display: flex;
+  justify-content: center;
+}
 
 .pokemon {
   text-transform: capitalize;

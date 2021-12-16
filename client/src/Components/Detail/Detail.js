@@ -4,17 +4,11 @@ import { useParams } from "react-router-dom";
 import "./detail.css";
 
 const Detail = () => {
-  //const dispatch = useDispatch();
-
   const { id } = useParams();
-
-  // useEffect(() => {
-  //   dispatch(selectedPokemon(id));
-  // }, [dispatch, id]); //esto monta en el initialState del reducer lo que diga la funcion setPokemons
 
   let pokemon = useSelector((store) => {
     return store.trappedPokemons;
-  }); // trae del store la info que está dentro del estado trappedPokemons del reducer
+  });
   let pokemon2 = useSelector((store) => {
     return store.catchedPokemon;
   });

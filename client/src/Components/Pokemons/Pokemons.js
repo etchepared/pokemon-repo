@@ -18,14 +18,14 @@ const Pokemons = () => {
   if (Array.isArray(pokemons)) {
     const nextPage = () => {
       if (currentPage < pokemons.length - 1) {
-        setCurrentPage(currentPage + 5);
+        setCurrentPage(currentPage + 12);
       }
     };
     const prevPage = () => {
-      if (currentPage > 0) setCurrentPage(currentPage - 5);
+      if (currentPage > 0) setCurrentPage(currentPage - 12);
     };
     const filteredPokemons = () => {
-      return pokemons.slice(currentPage, currentPage + 5);
+      return pokemons.slice(currentPage, currentPage + 12);
     };
     return (
       <div className="all">

@@ -6,7 +6,7 @@ import Home from "./Components/Home/Home";
 import Landing from "./Components/Landing/Landing";
 import Detail from "./Components/Detail/Detail";
 import Navbar from "./Components/Navbar/Navbar";
-import Form from "./Components/Form/Form";
+import AddPokemon from "./Components/AddPokemon/AddPokemon";
 
 function App() {
   const location = useLocation();
@@ -20,7 +20,7 @@ function App() {
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/:id/detail" element={<Detail />} />
-            <Route path="/create" element={<Form />} />
+            <Route path="/create" element={<AddPokemon />} />
           </Routes>
         </>
       )}

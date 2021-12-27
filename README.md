@@ -83,10 +83,10 @@ A continuación se detallaran los requerimientos mínimos para la aprobación de
 
 #### Tecnologías necesarias:
 
-- [ ] React
-- [ ] Redux
-- [ ] Express
-- [ ] Sequelize - Postgres
+- [x] React
+- [x] Redux
+- [x] Express
+- [x] Sequelize - Postgres
 
 #### Frontend
 
@@ -120,8 +120,8 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 **Ruta de creación**: debe contener
 
 - [x] Un formulario **controlado** con los campos mencionados en el detalle del pokemon
-- [ ] Posibilidad de seleccionar/agregar más de un tipo de pokemon
-- [ ] Botón/Opción para crear un nuevo pokemon
+- [x] Posibilidad de seleccionar/agregar más de un tipo de pokemon
+- [x] Botón/Opción para crear un nuevo pokemon
 
 #### Base de datos
 
@@ -160,7 +160,7 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 - [x] **GET /pokemons?name="..."**:
   - Obtener el pokemon que coincida exactamente con el nombre pasado como query parameter (Puede ser de pokeapi o creado por nosotros)
   - Si no existe ningún pokemon mostrar un mensaje adecuado
-- [ ] **POST /pokemons**:
+- [x] **POST /pokemons**:
   - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de pokemons por body
   - Crea un pokemon en la base de datos
 - [x] **GET /types**:

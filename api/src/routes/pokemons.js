@@ -62,7 +62,7 @@ router.get("/pokemons", async (req, res, next) => {
   }
   try {
     const apiPokemons = await axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=10")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=40")
       .then((d) => d.data.results);
 
     const pokeData = apiPokemons.map(async (p) => {
@@ -87,39 +87,34 @@ router.get("/pokemons", async (req, res, next) => {
     });
 
     const pokeResults = await Promise.all(pokeData);
-
+    
     const dbPokemons = await Pokemon.findAll({
       include: [{ model: Type, attributes: ["name"] }],
     });
-
+    console.log(dbPokemons);
+    
     if (dbPokemons.length) {
-      const {
-        id,
-        image,
-        name,
-        types,
-        hp,
-        strength,
-        defense,
-        speed,
-        height,
-        weight,
-      } = dbPokemons[0];
+    
 
-      const myPokemons = {
-        id,
-        image,
-        name,
-        types: types.map((p) => {
-          return p.name;
+    const myPokemons = dbPokemons.map((p) => {
+      return {
+        id: p.id,
+        image: p.image,
+        name: p.name,
+        types: p.types.map((t) => {
+          return t.name;
         }),
-        strength,
-        hp,
-        defense,
-        speed,
-        height,
-        weight,
-      };
+        strength: p.strength,
+        hp: p.hp,
+        defense: p.defense,
+        speed: p.speed,
+        height: p.height,
+        weight: p.weight,
+      }
+    }) 
+
+      
+      
       return res.json(pokeResults.concat(myPokemons));
     }
 

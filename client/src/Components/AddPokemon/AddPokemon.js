@@ -65,6 +65,7 @@ export default function AddPokemon() {
         className="name"
         type="text"
         placeholder="Name..."
+        required="required"
         value={myPokemon.name}
       />
 
@@ -120,16 +121,15 @@ export default function AddPokemon() {
         value={myPokemon.weight}
       />
       <label>Type</label>
-      <select onClick={(e) => onTypeChange(e)} className="types">
         {allTypes.map((t, index) => {
           return (
-            <option key={index} value={[t]}>
+            <label onClick={(e) => onTypeChange(e)} className="types">
+            <input type="checkbox" key={index} value={[t]}/>
               {t}
-            </option>
+            </label>
           );
         })}
-      </select>
-
+      
       <div>
         <button type="submit">Create pokemon</button>
       </div>

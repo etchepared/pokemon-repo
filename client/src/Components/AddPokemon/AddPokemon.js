@@ -58,81 +58,100 @@ export default function AddPokemon() {
       <div>
         <>Create your own Pokemon</>
       </div>
-      <label>Name: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="name"
-        className="name"
-        type="text"
-        placeholder="Name..."
-        required="required"
-        value={myPokemon.name}
-      />
-
-      <label>Life: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="hp"
-        className="life"
-        type="number"
-        value={myPokemon.hp}
-      />
-
-      <label>Strength: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="strength"
-        className="strength"
-        type="number"
-        value={myPokemon.strength}
-      />
-
-      <label>Defense: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="defense"
-        className="defense"
-        type="number"
-        value={myPokemon.defense}
-      />
-
-      <label>Speed: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="speed"
-        className="speed"
-        type="number"
-        value={myPokemon.speed}
-      />
-      <label>Height: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="height"
-        className="height"
-        type="number"
-        value={myPokemon.height}
-      />
-      <label>Weight: </label>
-      <input
-        onChange={(e) => onInputChange(e)}
-        id="weight"
-        className="weight"
-        type="number"
-        value={myPokemon.weight}
-      />
-      <label>Type</label>
-        {allTypes.map((t, index) => {
-          return (
-            <label onClick={(e) => onTypeChange(e)} className="types">
-            <input type="checkbox" key={index} value={[t]}/>
-              {t}
-            </label>
-          );
-        })}
-      
-      <div>
-        <button type="submit">Create pokemon</button>
+      <div className="inputsContainer">
+        <div>
+          <label>Name: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="name"
+            className="name"
+            type="text"
+            placeholder="Name..."
+            required="required"
+            value={myPokemon.name}
+          />
+        </div>
+        <div>
+          <label>Life: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="hp"
+            className="life"
+            type="number"
+            value={myPokemon.hp}
+          />
+        </div>
+        <div>
+          <label>Strength: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="strength"
+            className="strength"
+            type="number"
+            value={myPokemon.strength}
+          />
+        </div>
+        <div>
+          <label>Defense: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="defense"
+            className="defense"
+            type="number"
+            value={myPokemon.defense}
+          />
+        </div>
+        <div>
+          <label>Speed: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="speed"
+            className="speed"
+            type="number"
+            value={myPokemon.speed}
+          />
+        </div>
+        <div>
+          <label>Height: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="height"
+            className="height"
+            type="number"
+            value={myPokemon.height}
+          />
+        </div>
+        <div>
+          <label>Weight: </label>
+          <input
+            onChange={(e) => onInputChange(e)}
+            id="weight"
+            className="weight"
+            type="number"
+            value={myPokemon.weight}
+          />
+        </div>
+        <div>
+          <label>Type: </label>
+          <div className="typesBoxs">
+            {allTypes.map((t, index) => {
+              return (
+                <div key={t} className="checkbag">
+                  <label onClick={(e) => onTypeChange(e)} className="types">
+                    <div className="checkbox">
+                      <input  type="checkbox" key={index} value={[t]}/>
+                        {t}
+                    </div>
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
+        <div>
+          <button type="submit">My pokemon is ready!</button>
+        </div>
     </form>
   );
 }

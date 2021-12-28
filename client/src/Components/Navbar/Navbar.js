@@ -6,7 +6,7 @@ import "./navbar.css";
 const Navbar = () => {
   return (
     <div className="containerNavbar">
-      <nav>
+      <nav className="navbar">
         <ToHome />
         <Create />
       </nav>

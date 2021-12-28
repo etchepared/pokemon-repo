@@ -8,7 +8,7 @@ const Create = () => {
     <div className="containerCreate">
       <nav>
         <Link to="/create">
-          <button>Create</button>
+          <button>Create your own pokemon!</button>
         </Link>
       </nav>
     </div>

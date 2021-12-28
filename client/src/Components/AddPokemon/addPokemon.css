@@ -1,0 +1,35 @@
+.inputsContainer{
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 10px 20px;
+    
+}
+
+.typesBoxs {
+    text-transform: capitalize;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.checkbag {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 5px 5px; 
+    
+}
+
+.checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    padding-right: 10px;
+    padding-left: 5px;
+    height: 25px;
+    text-align: center;
+    
+}

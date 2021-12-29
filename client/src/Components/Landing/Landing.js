@@ -1,10 +1,10 @@
 import "./landing.css";
-import catchemall from "../MyImages/catchemall.png";
-
+//import catchemall from "../MyImages/catchemall.png";
+import ball from "../MyImages/ball.jpg";
 const Landing = () => {
   return (
     <div className="landing">
-      <img src={catchemall} alt="Landing" />
+      <img src={ball} alt="Landing" />
     </div>
   );
 };

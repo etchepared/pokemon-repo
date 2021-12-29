@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
 .page {
   display: flex;
   justify-content: center;
@@ -13,6 +14,13 @@
   display: flexbox;
   border: solid black;
   margin-top: 5px;
+  filter: grayscale(1) contrast(150%);
+  
+}
+
+.pokemon:hover {
+  filter: grayscale(0) contrast(100%);
+
 }
 
 .pokemonImage {

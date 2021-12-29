@@ -1,18 +1,7 @@
-/* .navbar {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-} */
+.homeContainer {
+  /* background: url("https://wallpapercave.com/wp/evqHTQr.jpg") no-repeat fixed center; */
 
-/* .left img {
-  display: block;
-  padding-top: 10px;
-  padding-left: 10px;
-  width: 90px;
-  height: 90px;
-} */
-
-/* .rigth {
-  display: flex;
-  padding-left: 20%;
-} */
+  background-image: url("../MyImages/4119224.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

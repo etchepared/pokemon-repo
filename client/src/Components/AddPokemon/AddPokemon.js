@@ -59,6 +59,7 @@ export default function AddPokemon() {
         <>Create your own Pokemon</>
       </div>
       <div className="inputsContainer">
+        <div className="containerLeft">
         <div>
           <label>Name: </label>
           <input
@@ -148,6 +149,25 @@ export default function AddPokemon() {
             })}
           </div>
         </div>
+      </div>
+      <div className="containerRight">
+        <h3>
+          {myPokemon.name}
+        </h3>
+        <img src="https://cdn.pixabay.com/photo/2016/07/13/08/31/pokemon-1513925_960_720.jpg" alt="" />
+        <div className="mapTypes">
+                    {myPokemon.types.map((t) => {
+                      return <h4 key={myPokemon.types.indexOf(t) + 1}>{t}</h4>;
+                    })}
+        </div>
+        <h5>Life: {myPokemon.hp}</h5>
+        <h5>Strength: {myPokemon.strength}</h5>
+        <h5>defense: {myPokemon.defense}</h5>
+        <h5>speed: {myPokemon.speed}</h5>
+        <h5>height: {myPokemon.height}</h5>
+        <h5>weight: {myPokemon.weight}</h5>
+        
+      </div>
       </div>
         <div>
           <button type="submit">My pokemon is ready!</button>

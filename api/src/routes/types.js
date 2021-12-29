@@ -10,9 +10,12 @@ router.get("/types", async (req, res, next) => {
       .get("https://pokeapi.co/api/v2/type")
       .then((d) => d.data.results);
 
-    const infoTypes = Types.map((t) => {
+    let infoTypes = Types.map((t) => {
       return t.name;
     });
+
+    infoTypes.sort();
+
     res.json(infoTypes);
   } catch (error) {
     next(error);

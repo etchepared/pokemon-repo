@@ -1,15 +1,28 @@
 .inputsContainer{
+    display: flex;
+    text-transform: capitalize;
+}
+
+.containerLeft {
     border: 2px solid black;
     border-radius: 5px;
     margin: 10px 20px;
-    
+    width: 50%;
+}
+
+.containerRight {
+    width: 50%;
+}
+
+.containerRight img {
+    max-width: 50%;
 }
 
 .typesBoxs {
-    text-transform: capitalize;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .checkbag {

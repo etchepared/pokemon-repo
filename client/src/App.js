@@ -8,6 +8,7 @@ import Detail from "./Components/Detail/Detail";
 import Navbar from "./Components/Navbar/Navbar";
 import AddPokemon from "./Components/AddPokemon/AddPokemon";
 
+
 function App() {
   const location = useLocation();
   return (

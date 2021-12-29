@@ -11,27 +11,28 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         trappedPokemons: action.payload,
-        catchedPokemon: null,
+        catchedPokemon: action.payload,
       };
 
     case "SORT_BY_NAME":
-      let orderedPokemons = [...state.trappedPokemons];
-      orderedPokemons = orderedPokemons.sort((a, b) => {
-        if (a.name < b.name) {
-          return action.payload === "A-Z" ? -1 : 1;
-        }
-        if (a.name > b.name) {
-          return action.payload === "A-Z" ? 1 : -1;
-        }
-        return 0;
-      });
-      return {
-        ...state,
-        catchedPokemon: orderedPokemons,
-      };
+      
+        let orderedCatchedPokemons = [...state.catchedPokemon];
+        orderedCatchedPokemons = orderedCatchedPokemons.sort((a, b) => {
+          if (a.name < b.name) {
+            return action.payload === "A-Z" ? -1 : 1;
+          }
+          if (a.name > b.name) {
+            return action.payload === "A-Z" ? 1 : -1;
+          }
+          return 0;
+        });
+        return {
+          ...state,
+          catchedPokemon: orderedCatchedPokemons,
+        };
 
     case "SORT_BY_STRENGTH":
-      let orderByStrength = [...state.trappedPokemons];
+      let orderByStrength = [...state.catchedPokemon];
       orderByStrength = orderByStrength.sort((a, b) => {
         if (action.payload === "MENOR") {
           return a.strength - b.strength;

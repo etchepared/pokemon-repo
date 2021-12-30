@@ -1,9 +1,10 @@
 .landing {
-  display: flex;
+  /* background: black; */
+  position: relative;
 }
 
 .landing img {
-  display: flex;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100vw;
+  height: auto;
+  size: 100%;
 }

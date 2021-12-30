@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import CreateYours from "../MyImages/Createyours.png"
 import "./create.css";
 
 const Create = () => {
@@ -8,7 +8,7 @@ const Create = () => {
     <div className="containerCreate">
       <nav>
         <Link to="/create">
-          <button>Create your own pokemon!</button>
+          <img id="create" src={CreateYours} alt="Create your Pokémon"/>
         </Link>
       </nav>
     </div>

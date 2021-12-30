@@ -15,8 +15,7 @@ function App() {
     <div className="App">
       <Navbar />
       {location.pathname === "/" ? (
-        <Landing />
-      ) : (
+        <Landing />) : (
         <>
           <Routes>
             <Route path="/home" element={<Home />} />

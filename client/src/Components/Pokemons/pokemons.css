@@ -1,39 +1,73 @@
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 .page {
   display: flex;
   justify-content: center;
 }
 
-.pokemon {
-  text-transform: capitalize;
-  display: flexbox;
-  border: solid black;
-  margin-top: 5px;
-  filter: grayscale(1) contrast(150%);
+.container {
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 95vw;
+  justify-content: space-evenly;
+  margin: 2vh 1vw 2vh 1vw;
+  box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
+-webkit-box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
+-moz-box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
+}
+
+a:link, a:visited, a:active {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  letter-spacing: 1px;
+}
+
+a:link:hover, a:visited:hover, a:active:hover {
+  text-decoration: none;
+  color: red;
   
 }
 
-.pokemon:hover {
-  filter: grayscale(0) contrast(100%);
+.pokemon {
+  text-transform: capitalize;
+  display: flexbox;
+  margin: 2vh 1vw 2vh 1vw;
+  box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
+}
 
+.pokemon:hover {
+  box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
 }
 
 .pokemonImage {
-  width: 200px;
-  height: 200px;
-  background-image: url("../MyImages/PokeGo.png");
+  display: flex;
+  justify-content: center;
+  width: 16vw;
+  height: auto;
+}
+
+.pokemonImage img {
+  filter: grayscale(1) contrast(150%);
+  width: 16vw;
+  height: auto;
+  background-image: url("../MyImages/pngegg.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.pokemonImage img {
-  max-width: 100%;
-  max-height: 100%;
+.pokemonImage img:hover {
+  filter: grayscale(0) contrast(100%);
+  display: flex;
+  justify-content: center;
+  width: 20vw;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+-webkit-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+-moz-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
 }
 
 .mapTypes {

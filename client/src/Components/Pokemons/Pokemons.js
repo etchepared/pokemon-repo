@@ -14,7 +14,6 @@ const Pokemons = () => {
     return <div className="error">Pokemon no encontrado</div>;
   }
 
-  //console.log(pokemons);
   if (Array.isArray(pokemons)) {
     const nextPage = () => {
       if (currentPage < pokemons.length - 1) {

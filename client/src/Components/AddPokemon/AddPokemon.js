@@ -27,12 +27,21 @@ export default function AddPokemon() {
   const onInputChange = (e) => {
     setMyPokemon({ ...myPokemon, [e.target.id]: e.target.value });
   };
+
   const onTypeChange = (e) => {
-    setMyPokemon({
-      ...myPokemon,
-      types: [...myPokemon.types, e.target.value],
-    });
+    if(!myPokemon.types.includes(e.target.value)){
+        setMyPokemon({
+        ...myPokemon,
+        types: [...myPokemon.types, e.target.value],
+      })
+    } else {
+        setMyPokemon({
+        ...myPokemon,
+        types: [...myPokemon.types.filter((el) => e.target.value != el)],
+      });
+    }
   };
+
   async function onSubmit(e) {
     console.log(myPokemon);
     try {

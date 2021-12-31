@@ -1,0 +1,37 @@
+.containerToHome {
+    height: 100%;
+}
+
+.containerToHome nav {
+    height: 100%;
+}
+
+.homeButton {
+    height: 100%;
+}
+
+.startbutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 3.5vh;
+}
+
+.cerrada {
+    display: flex;
+    width: 10vw;
+    height: 12vh;
+    background-image: url("../MyImages/pokecerrada.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cerrada:hover {
+    display: flex;
+    width: 10vw;
+    height: 12vh;
+    background-image: url("../MyImages/pokeabierta.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -2,12 +2,36 @@
   
 }
 
-#homeButton {
+.homeButton {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
+.homeButton a {
+  height: 100%;
+  display: flex;
+align-items: center;
+}
 .homeReset {
-  width: 10vw;
-  height: auto;
+  height: 7vh; 
+}
+
+.homeReset:hover {
+  box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+-webkit-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+-moz-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98); 
+}
+
+.home {
+  height: 7vh;
+}
+
+.home:hover {
+  box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+-webkit-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98);
+-moz-box-shadow: 0px 0px 10px 1px rgba(156,0,0,0.98); 
 }
 
 /* .navbar {
@@ -16,9 +40,8 @@
   align-items: center;
 } */
 .pokego {
-  width: 10vw;
-  height: auto;
-}
+  height: 11vh;
+  }
 
 .homeSpan {
   color: rgb(146, 12, 12);

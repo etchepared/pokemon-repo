@@ -1,7 +1,7 @@
 const initialState = {
   trappedPokemons: [], //todos
   catchedPokemon: null, //agua // all
-  filteredPokemons: [],
+  // filteredPokemons: [],
   //first: [{"id":25,"name":"pikachu","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png","types":["electric"],"hp":35,"strength":55,"defense":40,"speed":90,"height":4,"weight":60}],
   types: [],
 };

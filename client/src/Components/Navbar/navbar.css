@@ -1,3 +1,8 @@
+.containerNavbarA {
+    height: 14vh;
+    background: none;
+}
+
 .containerNavbar {
     height: 12vh;
     background: none;
@@ -8,13 +13,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .toHomeNav {
-
+    height: 100%;
+    display: flex;
+align-items: center;
 }
 
 #pokepedia {
+    margin-top: 2vh;
+    margin-right: 1vw;
     width: auto;
-    height: 10vh;
+    height: 11vh;
 }

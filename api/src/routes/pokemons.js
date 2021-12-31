@@ -44,7 +44,7 @@ router.get("/pokemons", async (req, res, next) => {
       const pokeInfo = {
         id: pokemonChosen.id,
         name: pokemonChosen.name,
-        image: pokemonChosen.sprites.other["dream_world"]["front_default"],
+        image: pokemonChosen.sprites.other["official-artwork"]["front_default"],
         types: pokemonChosen.types.map((p) => {
           return p.type.name;
         }),

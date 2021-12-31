@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { setPokemons } from "../../Actions";
 //import { useNavigate } from "react-router-dom";
 import "./addPokemon.css";
+import hand from "../MyImages/pngegg.png";
 
 export default function AddPokemon() {
   const allTypes = useSelector((store) => {
@@ -48,13 +49,14 @@ export default function AddPokemon() {
         types: [],
       });
       alert("Pokemon successfully created!");
+      window.location.href = "http://localhost:3000/home";
     } catch (error) {
       alert("Pokemon creation failed.");
     }
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form id="form" onSubmit={onSubmit}>
       <div>
         <>Create your own Pokemon</>
       </div>
@@ -78,7 +80,9 @@ export default function AddPokemon() {
             onChange={(e) => onInputChange(e)}
             id="hp"
             className="life"
-            type="number"
+            type="range"
+            min="0"
+            max="200"
             value={myPokemon.hp}
           />
         </div>
@@ -88,7 +92,9 @@ export default function AddPokemon() {
             onChange={(e) => onInputChange(e)}
             id="strength"
             className="strength"
-            type="number"
+            type="range"
+            min="0"
+            max="200"
             value={myPokemon.strength}
           />
         </div>
@@ -98,7 +104,9 @@ export default function AddPokemon() {
             onChange={(e) => onInputChange(e)}
             id="defense"
             className="defense"
-            type="number"
+            type="range"
+            min="0"
+            max="200"
             value={myPokemon.defense}
           />
         </div>
@@ -108,7 +116,9 @@ export default function AddPokemon() {
             onChange={(e) => onInputChange(e)}
             id="speed"
             className="speed"
-            type="number"
+            type="range"
+            min="0"
+            max="200"
             value={myPokemon.speed}
           />
         </div>
@@ -118,7 +128,9 @@ export default function AddPokemon() {
             onChange={(e) => onInputChange(e)}
             id="height"
             className="height"
-            type="number"
+            type="range"
+            min="0"
+            max="200"
             value={myPokemon.height}
           />
         </div>
@@ -128,7 +140,9 @@ export default function AddPokemon() {
             onChange={(e) => onInputChange(e)}
             id="weight"
             className="weight"
-            type="number"
+            type="range"
+            min="0"
+            max="200"
             value={myPokemon.weight}
           />
         </div>
@@ -154,7 +168,7 @@ export default function AddPokemon() {
         <h3>
           {myPokemon.name}
         </h3>
-        <img src="https://cdn.pixabay.com/photo/2016/07/13/08/31/pokemon-1513925_960_720.jpg" alt="" />
+        <img src={hand} alt="" />
         <div className="mapTypes">
                     {myPokemon.types.map((t) => {
                       return <h4 key={myPokemon.types.indexOf(t) + 1}>{t}</h4>;

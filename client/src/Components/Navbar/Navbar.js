@@ -2,7 +2,8 @@ import React from "react";
 import ToHome from "../ToHome/ToHome";
 import Create from "../Create/Create";
 import "./navbar.css";
-import pokepedia from "../MyImages/pokepedia.png"
+//import pokepedia from "../MyImages/pokepedia.png"
+import pokepedia from "../MyImages/HenryPokepedia.png"
 
 const Navbar = () => {
   return (

@@ -12,11 +12,15 @@ const Home = () => {
     <div className="homeContainer">
       <div>
         <div className="center">
-          <CatchPokemon />
-          <SortByName />
-          <SortByStrength />
-          <FilterByType />
-          <FilterCreated />
+          <div id="searchbar">
+            <CatchPokemon />
+          </div>
+          <div>
+            <SortByName />
+            <SortByStrength />
+            <FilterByType />
+            <FilterCreated />
+          </div>
         </div>
         <Pokemons />
       </div>

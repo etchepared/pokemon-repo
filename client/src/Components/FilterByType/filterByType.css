@@ -1,0 +1,21 @@
+#select {
+  transition: 0, 5s;
+  width: 23vw;
+  height: 5vh;
+  background: none;
+  text-transform: capitalize;
+  font-size: 2.8vh;
+  color: rgba(255, 255, 255, 0.98);
+  border: 3px solid rgba(255, 255, 255, 0.98);
+  border-radius: 5px;
+  outline: none;
+  cursor: auto;
+}
+
+#select:hover {
+  transition: 0, 5s;
+  background: rgb(95, 0, 0);
+  border: 3px solid rgb(95, 0, 0);
+  color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0px 0px 40px rgb(95, 0, 0);
+}

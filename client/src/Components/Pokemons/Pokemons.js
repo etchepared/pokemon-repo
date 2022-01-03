@@ -10,17 +10,10 @@ const Pokemons = () => {
   const pokemons = useSelector((store) => {
     return store.catchedPokemon || store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
-  //nuevo+++++++++++++++++++
-  // const first = useSelector((store) => {
-  //   return store.first;
-  // })
-  // if (!first) {
-  //   return (() => alert("Pokemon not found"))
-  // }
-   if (!pokemons) {
-     return (() => alert("Pokemon not found"));
-   }
-  //++++++++++++++++++++++++
+
+  if (!pokemons) {
+    return () => alert("Pokemon not found");
+  }
 
   if (Array.isArray(pokemons)) {
     const nextPage = () => {
@@ -35,29 +28,9 @@ const Pokemons = () => {
       return pokemons.slice(currentPage, currentPage + 12);
     };
     return (
-      // nuevo++++++++++++++++++++
       <div>
-        {/* <div className="container">
-          <div key={first.id} className="pokemon">
-            <Link to={`/${first.id}/detail`}>
-              <div className="pokemonImage">
-                <img src={first.image} alt={first.name} />
-              </div>
-                <div id="top">
-                <h3>{first.name}</h3>
-                <div className="mapTypes">
-                  {first.types.map((t) => {
-                    return <h4 key={first.types.indexOf(t) + 1}>{t}</h4>;
-                  })}
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-        <></> */}
-         {/* hasta acá ++++++++*/}
         <div className="all">
-          <div className="page">
+          <div className="page" id="dataCompleted">
             <button className="prev" onClick={prevPage}>
               prev
             </button>

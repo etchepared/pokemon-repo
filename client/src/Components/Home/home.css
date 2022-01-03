@@ -5,3 +5,13 @@
   background-repeat: no-repeat;
   background-size: 100%;
 }
+
+.center {
+  display: grid;
+  justify-content: center;
+}
+
+#searchbar {
+  display: flex;
+  justify-content: center;
+}

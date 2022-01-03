@@ -1,0 +1,18 @@
+#detailContainer {
+  display: flex;
+  align-items: center;
+  height: 82vh;
+}
+
+#detailcard {
+  color: whitesmoke;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 40vw;
+  height: 60vh;
+}
+
+#detailcard:hover {
+  color: rgb(104, 0, 0);
+}

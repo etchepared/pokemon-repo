@@ -15,8 +15,10 @@ export default function FilterByType() {
   }
 
   return (
-    <select name="select" onChange={onSelectChange}>
-      <option value="ALL">Filter by Type</option>
+    <select id="select" name="select" onChange={onSelectChange}>
+      <option id="selectOp" value="ALL">
+        Filter by Type
+      </option>
       {allTypes.map((t, index) => {
         return (
           <option key={index} value={t}>

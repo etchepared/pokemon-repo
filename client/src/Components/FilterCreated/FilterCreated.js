@@ -11,7 +11,7 @@ export default function FilterCreated() {
   }
 
   return (
-    <select name="select" onChange={onSelectChange}>
+    <select id="select" name="select" onChange={onSelectChange}>
       <option value="ALL">Filter by Creator</option>
       <option value="API">Existing Pokemons</option>
       <option value="CREATED">My Pokemons</option>

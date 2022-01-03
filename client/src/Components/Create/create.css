@@ -3,7 +3,8 @@
 }
 
 #create {
-    height: 7vh;
+    width: 17vh;
+    margin-right: 2vw;
 }
 
 #create:hover {

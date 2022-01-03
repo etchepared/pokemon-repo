@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setPokemons, setTypes } from "../../Actions";
-import PokeGo from "../MyImages/PokeGo.png";
 import Home from "../MyImages/Home.png";
 import Reset from "../MyImages/ResetFilters.png";
 import ash from "../MyImages/3770952.jpg"
@@ -30,7 +29,6 @@ const ToHome = () => {
             <img className="homeReset" src={Reset} alt="Home" /> : 
             <img className="home" src={Home} alt="Home" />
           }
-            {/* <span className="homeSpan">Home / Reset filters</span> */}
           </Link>
         </div>
       </nav>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CreateYours from "../MyImages/Createyours.png"
+import CreateYours from "../MyImages/create.png"
 import "./create.css";
 
 const Create = () => {

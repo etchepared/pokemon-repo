@@ -19,9 +19,16 @@ export default function CatchPokemon() {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Pokemon name..." onChange={onInputChange} value={search} />
-        <input type="submit"  value="Catch" />
+      <form id="searchForm" onSubmit={onSubmit}>
+        <input
+          type="text"
+          placeholder="Pokemon name..."
+          onChange={onInputChange}
+          value={search}
+        />
+        <div id="dataCompleted">
+          <button type="submit">Catch</button>
+        </div>
       </form>
     </div>
   );

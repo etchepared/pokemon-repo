@@ -1,72 +1,169 @@
 #form {
-    background: red;
-    width: 95vw;
-    margin: 2vh 1vw 2vh 1vw;
-  box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
--webkit-box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
--moz-box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.98);
-color:blanchedalmond;
+  background: rgb(0, 0, 0);
+  width: 96.5vw;
+  height: 80vh;
+  margin: 2vh 1vw 2vh 1vw;
+  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  color: blanchedalmond;
 }
 
-.inputsContainer{
-    display: flex;
-    text-transform: capitalize;
+#dataCompleted {
+  display: flex;
+  justify-content: center;
+  padding-top: 2vh;
 }
 
-.containerLeft {
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 10px 20px;
-    width: 50%;
-    display: inline-grid;
-    justify-content: flex-start;
+#dataCompleted button {
+  transition: 0, 5s;
+  width: 23vw;
+  height: 5vh;
+  background: none;
+  font-size: 2.8vh;
+  color: rgba(255, 255, 255, 0.98);
+  border: 3px solid rgba(255, 255, 255, 0.98);
+  border-radius: 5px;
+  outline: none;
+  cursor: auto;
 }
 
-input[type=range] {
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
+#dataCompleted button:hover {
+  transition: 0, 5s;
+  background: rgb(95, 0, 0);
+  border: 3px solid rgb(95, 0, 0);
+  color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0px 0px 40px rgb(95, 0, 0);
 }
 
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
+.inputsContainer {
+  display: flex;
+  text-transform: capitalize;
+  height: 80vh;
 }
 
+.containerAddLeft {
+  font-size: 2.8vh;
 
+  margin: 1vw;
+  width: 40vw;
+  display: inline-grid;
+  justify-content: flex-start;
+}
+
+.top {
+  display: grid;
+}
+
+#name {
+  display: flex;
+}
+
+#name input {
+  width: 16.25vw;
+}
+
+.error {
+  color: antiquewhite;
+}
+
+.stats {
+  display: flex;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 20vw;
+  background: grey;
+}
+
+input[type="range"]:hover {
+  background: rgb(95, 0, 0);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+#bottom {
+}
 
 .typesBoxs {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
 }
 
 .checkbag {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 5px 5px; 
-    
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0.5vw;
 }
 
 .checkbox {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    border: 1px solid black;
-    border-radius: 5px;
-    width: fit-content;
-    padding-right: 10px;
-    padding-left: 5px;
-    height: 25px;
-    text-align: center;
-    
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: fit-content;
+  padding-right: 0.3vw;
+  padding-left: 0.3vw;
+  height: 3vh;
+  text-align: center;
 }
 
-.containerRight {
-    width: 50%;
+.containerAddRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  width: 50vw;
+  height: 78vh;
+  /* margin: 1vh 1vw 2vh 1vw; */
+  padding-left: 0vw;
 }
 
-.containerRight img {
-    max-width: 50%;
+.containerAddRight img {
+  width: 14vw;
+  height: auto;
+  border-radius: 50%;
+}
+
+.containerAddRight img:hover {
+  width: 16vw;
+  height: auto;
+}
+
+.containerAddRight h3 {
+  text-align: center;
+  font-size: 2.3vmax;
+}
+
+.containerAddRight h4 {
+  font-size: 1.6vmax;
+}
+
+#detailcard {
+  color: whitesmoke;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 40vw;
+  height: 60vh;
+}
+
+#detailcard:hover {
+  color: rgb(104, 0, 0);
+}
+
+.statsDetail {
+  font-size: 1.3vmax;
 }

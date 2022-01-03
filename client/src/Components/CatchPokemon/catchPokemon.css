@@ -1,0 +1,15 @@
+#searchForm {
+  display: inline-flex;
+}
+
+#searchForm input {
+  width: 22vw;
+  height: 4vh;
+  margin-top: 1vh;
+}
+
+#searchForm button {
+  height: 4vh;
+  margin-top: -1vh;
+  margin-bottom: 2vh;
+}

@@ -1,15 +1,21 @@
-import { React, useState } from "react";
-import { useSelector } from "react-redux";
+import { React, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setPokemons } from "../../Actions";
 
 import "./pokemons.css";
 
 const Pokemons = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch();
 
   const pokemons = useSelector((store) => {
     return store.filterMine || store.catchedPokemon || store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
+
+  useEffect(() => {
+    dispatch(setPokemons());
+  }, [dispatch]);
 
   if (!pokemons) {
     return () => alert("Pokemon not found");
@@ -27,6 +33,7 @@ const Pokemons = () => {
     const filteredPokemons = () => {
       return pokemons.slice(currentPage, currentPage + 12);
     };
+    console.log(filteredPokemons);
     return (
       <div>
         <div className="all">
@@ -39,23 +46,27 @@ const Pokemons = () => {
             </button>
           </div>
           <div className="container">
-            {filteredPokemons().map((p) => {
-              return (
-                <div key={p.id} className="pokemon">
-                  <Link to={`/${p.id}/detail`}>
-                    <h3>{p.name}</h3>
-                    <div className="pokemonImage">
-                      <img src={p.image} alt={p.name} />
-                    </div>
-                    <div className="mapTypes">
-                      {p.types.map((t) => {
-                        return <h4 key={p.types.indexOf(t) + 1}>{t}</h4>;
-                      })}
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+            {pokemons.length ? (
+              filteredPokemons().map((p) => {
+                return (
+                  <div key={p.id} className="pokemon">
+                    <Link to={`/${p.id}/detail`}>
+                      <h3>{p.name}</h3>
+                      <div className="pokemonImage">
+                        <img src={p.image} alt={p.name} />
+                      </div>
+                      <div className="mapTypes">
+                        {p.types.map((t) => {
+                          return <h4 key={p.types.indexOf(t) + 1}>{t}</h4>;
+                        })}
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })
+            ) : (
+              <div>Pokemons are coming...</div>
+            )}
           </div>
         </div>
       </div>

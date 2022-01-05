@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { setPokemons, setTypes } from "../../Actions";
 import Home from "../MyImages/Home.png";
 import Reset from "../MyImages/ResetFilters.png";
-import ash from "../MyImages/3770952.jpg"
+import ash from "../MyImages/3770952.jpg";
 import "./toHome.css";
 
 const ToHome = () => {
@@ -24,11 +24,12 @@ const ToHome = () => {
       <nav>
         <div className="homeButton" onClick={() => dispatch(setPokemons())}>
           <Link to="/home">
-          <img className="pokego" src={ash} alt="Home" />
-          {location.pathname === "/home" ? 
-            <img className="homeReset" src={Reset} alt="Home" /> : 
-            <img className="home" src={Home} alt="Home" />
-          }
+            <img className="pokego" src={ash} alt="Home" />
+            {location.pathname === "/home" ? (
+              <img className="homeReset" src={Reset} alt="Home" />
+            ) : (
+              <img className="home" src={Home} alt="Home" />
+            )}
           </Link>
         </div>
       </nav>

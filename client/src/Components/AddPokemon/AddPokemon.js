@@ -10,6 +10,11 @@ export default function AddPokemon() {
     return store.types;
   });
 
+  const alphaExp = /^[a-zA-Z \u00f1\u00d1\u00C0-\u017F]+$/;
+  //letras y espacios => [a-zA-Z ]
+  //ñ y Ñ => \u00f1\u00d1
+  //acentos \u00C0-\u017F
+
   const [myPokemon, setMyPokemon] = useState({
     name: "",
     hp: "",
@@ -75,7 +80,7 @@ export default function AddPokemon() {
 
   return (
     <form id="form" onSubmit={onSubmit}>
-      {myPokemon.name ? (
+      {myPokemon.name.match(alphaExp) ? (
         <div id="dataCompleted">
           <button type="submit">My pokemon is ready!</button>
         </div>
@@ -96,8 +101,8 @@ export default function AddPokemon() {
                   value={myPokemon.name}
                 />
                 {myPokemon.name &&
-                !/[^a-zA-Z0]/.test(myPokemon.name.replace(/ /g, "")) ? (
-                  <label>Great job!</label>
+                alphaExp.test(myPokemon.name.replace(/ /g, "")) ? (
+                  <label>Good name!</label>
                 ) : (
                   <label>This field is necesary and allows only letters</label>
                 )}

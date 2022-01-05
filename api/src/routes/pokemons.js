@@ -166,7 +166,7 @@ router.get("/pokemons/:idPokemon", async (req, res, next) => {
         }),
       });
     }
-    return res.send("Id not found");
+    return res.statut(404).send("Id not found");
   } catch (error) {
     next(error);
   }

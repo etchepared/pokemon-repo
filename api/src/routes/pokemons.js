@@ -55,7 +55,7 @@ router.get("/pokemons", async (req, res, next) => {
         height: pokemonChosen.height,
         weight: pokemonChosen.weight,
       };
-      return res.json(pokeInfo);
+      return res.status(200).json(pokeInfo);
     } catch (error) {
       res.status(400).send({ error: "Pokemon not found" });
     }
@@ -87,38 +87,34 @@ router.get("/pokemons", async (req, res, next) => {
     });
 
     const pokeResults = await Promise.all(pokeData);
-    
+
     const dbPokemons = await Pokemon.findAll({
       include: [{ model: Type, attributes: ["name"] }],
     });
-    console.log(dbPokemons);
-    
+    //console.log(dbPokemons);
+
     if (dbPokemons.length) {
-    
+      const myPokemons = dbPokemons.map((p) => {
+        return {
+          id: p.id,
+          image: p.image,
+          name: p.name,
+          types: p.types.map((t) => {
+            return t.name;
+          }),
+          strength: p.strength,
+          hp: p.hp,
+          defense: p.defense,
+          speed: p.speed,
+          height: p.height,
+          weight: p.weight,
+        };
+      });
 
-    const myPokemons = dbPokemons.map((p) => {
-      return {
-        id: p.id,
-        image: p.image,
-        name: p.name,
-        types: p.types.map((t) => {
-          return t.name;
-        }),
-        strength: p.strength,
-        hp: p.hp,
-        defense: p.defense,
-        speed: p.speed,
-        height: p.height,
-        weight: p.weight,
-      }
-    }) 
-
-      
-      
-      return res.json(pokeResults.concat(myPokemons));
+      return res.status(200).json(pokeResults.concat(myPokemons));
     }
 
-    return res.json(pokeResults);
+    return res.status(200).json(pokeResults);
   } catch (error) {
     next(error);
   }

@@ -8,7 +8,7 @@ const Pokemons = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const pokemons = useSelector((store) => {
-    return store.catchedPokemon || store.trappedPokemons;
+    return store.filterMine || store.catchedPokemon || store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
 
   if (!pokemons) {

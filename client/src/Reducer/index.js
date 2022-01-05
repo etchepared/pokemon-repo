@@ -17,22 +17,21 @@ export const Reducer = (state = initialState, action) => {
       };
 
     case "SORT_BY_NAME":
-      
-        let orderedCatchedPokemons = [...state.catchedPokemon];
-        orderedCatchedPokemons = orderedCatchedPokemons.sort((a, b) => {
-          if (a.name < b.name) {
-            return action.payload === "A-Z" ? -1 : 1;
-          }
-          if (a.name > b.name) {
-            return action.payload === "A-Z" ? 1 : -1;
-          }
-          return 0;
-        });
-        return {
-          ...state,
-          catchedPokemon: orderedCatchedPokemons,
-          first: orderedCatchedPokemons[0],
-        };
+      let orderedCatchedPokemons = [...state.catchedPokemon];
+      orderedCatchedPokemons = orderedCatchedPokemons.sort((a, b) => {
+        if (a.name < b.name) {
+          return action.payload === "A-Z" ? -1 : 1;
+        }
+        if (a.name > b.name) {
+          return action.payload === "A-Z" ? 1 : -1;
+        }
+        return 0;
+      });
+      return {
+        ...state,
+        catchedPokemon: orderedCatchedPokemons,
+        // first: orderedCatchedPokemons[0],
+      };
 
     case "SORT_BY_STRENGTH":
       let orderByStrength = [...state.catchedPokemon];
@@ -56,17 +55,19 @@ export const Reducer = (state = initialState, action) => {
     case "FILTER_BY_TYPE":
       let filterByType = [...state.trappedPokemons];
       if (action.payload === "all") {
-        return { ...state,
+        return {
+          ...state,
           catchedPokemon: filterByType,
           //first: filterByType[0],
-         };
+        };
       }
 
       let filteredByType = filterByType.filter((f) => {
         return f.types.includes(action.payload);
       });
 
-      return { ...state,
+      return {
+        ...state,
         catchedPokemon: filteredByType,
         //first: filterByType[0],
       };
@@ -74,26 +75,29 @@ export const Reducer = (state = initialState, action) => {
     case "FILTER_CREATED":
       let allPokemons = [...state.trappedPokemons];
       if (action.payload === "all") {
-        return { ...state,
+        return {
+          ...state,
           catchedPokemon: allPokemons,
-          //first: allPokemons[0], 
+          //first: allPokemons[0],
         };
       }
       if (action.payload === "api") {
         let api = allPokemons.filter((f) => {
           return !f.id.length;
         });
-        return { ...state,
+        return {
+          ...state,
           catchedPokemon: api,
-          //first: api[0], 
+          //first: api[0],
         };
       }
       let filtered = allPokemons.filter((f) => {
         return f.id.length > 5;
       });
-      return { ...state,
+      return {
+        ...state,
         catchedPokemon: filtered,
-        //first: filtered[0], 
+        //first: filtered[0],
       };
 
     case "POKEMON_DETAIL":

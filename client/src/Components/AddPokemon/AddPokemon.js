@@ -26,6 +26,7 @@ export default function AddPokemon() {
   };
 
   const onTypeChange = (e) => {
+    // if (myPokemon.types.map((e) => e.name === undefined))
     if (!myPokemon.types.includes(e.target.value)) {
       setMyPokemon({
         ...myPokemon,
@@ -40,7 +41,7 @@ export default function AddPokemon() {
   };
 
   async function onSubmit(e) {
-    console.log(myPokemon);
+    // console.log(myPokemon);
     try {
       e.preventDefault();
       await axios.post("http://localhost:3001/pokemons/create", myPokemon);
@@ -55,7 +56,18 @@ export default function AddPokemon() {
         types: [],
       });
       alert("Pokemon successfully created!");
-      window.location.href = "http://localhost:3000/home";
+      // *Si no quiero ir a home puedo resetear los campos
+      setMyPokemon({
+        name: "",
+        hp: "",
+        strength: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
+        types: [],
+      });
+      //window.location.href = "http://localhost:3000/home";
     } catch (error) {
       alert("Pokemon creation failed.");
     }
@@ -75,7 +87,7 @@ export default function AddPokemon() {
               <div>Name: </div>
               <div>
                 <input
-                  onChange={(e) => onInputChange(e)}
+                  onChange={onInputChange}
                   id="name"
                   className="name"
                   type="text"
@@ -83,6 +95,12 @@ export default function AddPokemon() {
                   required="required"
                   value={myPokemon.name}
                 />
+                {myPokemon.name &&
+                !/[^a-zA-Z0]/.test(myPokemon.name.replace(/ /g, "")) ? (
+                  <label>Great job!</label>
+                ) : (
+                  <label>This field is necesary and allows only letters</label>
+                )}
               </div>
             </div>
             <div className="stats">
@@ -90,7 +108,7 @@ export default function AddPokemon() {
                 <div>
                   <div>Life: </div>
                   <input
-                    onChange={(e) => onInputChange(e)}
+                    onChange={onInputChange}
                     id="hp"
                     className="life"
                     type="range"
@@ -102,7 +120,7 @@ export default function AddPokemon() {
                 <div>
                   <div>Strength: </div>
                   <input
-                    onChange={(e) => onInputChange(e)}
+                    onChange={onInputChange}
                     id="strength"
                     className="strength"
                     type="range"
@@ -114,7 +132,7 @@ export default function AddPokemon() {
                 <div>
                   <div>Defense: </div>
                   <input
-                    onChange={(e) => onInputChange(e)}
+                    onChange={onInputChange}
                     id="defense"
                     className="defense"
                     type="range"
@@ -128,7 +146,7 @@ export default function AddPokemon() {
                 <div>
                   <div>Speed: </div>
                   <input
-                    onChange={(e) => onInputChange(e)}
+                    onChange={onInputChange}
                     id="speed"
                     className="speed"
                     type="range"
@@ -140,7 +158,7 @@ export default function AddPokemon() {
                 <div>
                   <div>Height: </div>
                   <input
-                    onChange={(e) => onInputChange(e)}
+                    onChange={onInputChange}
                     id="height"
                     className="height"
                     type="range"
@@ -152,7 +170,7 @@ export default function AddPokemon() {
                 <div>
                   <div>Weight: </div>
                   <input
-                    onChange={(e) => onInputChange(e)}
+                    onChange={onInputChange}
                     id="weight"
                     className="weight"
                     type="range"
@@ -170,9 +188,14 @@ export default function AddPokemon() {
               {allTypes.map((t, index) => {
                 return (
                   <div key={t} className="checkbag">
-                    <label onClick={(e) => onTypeChange(e)} className="types">
+                    <label className="types">
                       <div className="checkbox">
-                        <input type="checkbox" key={index} value={[t]} />
+                        <input
+                          onChange={onTypeChange}
+                          type="checkbox"
+                          key={index}
+                          value={[t]}
+                        />
                         {t}
                       </div>
                     </label>

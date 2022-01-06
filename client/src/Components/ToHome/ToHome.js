@@ -24,12 +24,7 @@ const ToHome = () => {
       <nav>
         <div className="homeButton" onClick={() => dispatch(setPokemons())}>
           <Link to="/home">
-            <img className="pokego" src={ash} alt="Home" />
-            {location.pathname === "/home" ? (
-              <img className="homeReset" src={Reset} alt="Home" />
-            ) : (
-              <img className="home" src={Home} alt="Home" />
-            )}
+            <img className="home" src={Home} alt="Home" />
           </Link>
         </div>
       </nav>

@@ -30,10 +30,10 @@
 
 #dataCompleted button:hover {
   transition: 0, 5s;
-  background: rgb(95, 0, 0);
-  border: 3px solid rgb(95, 0, 0);
+  background: #0060df;
+  border: 3px solid #0060df;
   color: rgba(255, 255, 255, 0.98);
-  box-shadow: 0px 0px 40px rgb(95, 0, 0);
+  box-shadow: 0px 0px 40px #0060df;
 }
 
 .inputsContainer {
@@ -81,7 +81,7 @@ input[type="range"] {
 }
 
 input[type="range"]:hover {
-  background: rgb(95, 0, 0);
+  background: #0060df;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -123,6 +123,21 @@ input[type="range"]::-webkit-slider-thumb {
   text-align: center;
 }
 
+#checkButton {
+  background: transparent;
+  color: whitesmoke;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.98);
+}
+
+#checkButton:hover {
+  background-color: #0060df;
+}
+
 .containerAddRight {
   display: flex;
   justify-content: center;
@@ -130,6 +145,7 @@ input[type="range"]::-webkit-slider-thumb {
   text-transform: capitalize;
   width: 50vw;
   height: 78vh;
+
   /* margin: 1vh 1vw 2vh 1vw; */
   padding-left: 0vw;
 }

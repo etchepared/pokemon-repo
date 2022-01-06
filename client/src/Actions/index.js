@@ -23,6 +23,13 @@ export const sortByStrength = (order) => {
   };
 };
 
+export const sortPokemons = (order) => {
+  return {
+    type: "SORT_POKEMONS",
+    payload: order,
+  };
+};
+
 export function catchPokemon(search) {
   return function (dispatch) {
     axios
@@ -34,7 +41,10 @@ export function catchPokemon(search) {
         });
       })
       .catch((error) => {
-        console.log(error, "Pokemon not found");
+        dispatch({
+          type: "CATCH_POKEMON",
+          payload: "Pokemon not found on search",
+        });
       });
   };
 }

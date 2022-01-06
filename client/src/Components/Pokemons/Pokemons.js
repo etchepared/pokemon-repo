@@ -10,20 +10,22 @@ const Pokemons = () => {
   const dispatch = useDispatch();
 
   const pokemons = useSelector((store) => {
-    return store.filterMine || store.catchedPokemon || store.trappedPokemons;
+    return store.catchedPokemon || store.trappedPokemons;
   }); // trae del store la info que está dentro del estado trappedPokemons del reducer
 
-  useEffect(() => {
-    dispatch(setPokemons());
-  }, [dispatch]);
-
+  // useEffect(() => {
+  //   dispatch(setPokemons());
+  // }, [dispatch, pokemons]);
+  // console.log(pokemons);
   if (!pokemons) {
     return () => alert("Pokemon not found");
   }
 
   if (Array.isArray(pokemons)) {
     const nextPage = () => {
-      if (currentPage < pokemons.length - 1) {
+      //console.log(pokemons.length);
+      if (currentPage + 12 < pokemons.length - 1) {
+        //console.log(currentPage);
         setCurrentPage(currentPage + 12);
       }
     };
@@ -33,11 +35,11 @@ const Pokemons = () => {
     const filteredPokemons = () => {
       return pokemons.slice(currentPage, currentPage + 12);
     };
-    console.log(filteredPokemons);
+    // console.log(filteredPokemons);
     return (
       <div>
         <div className="all">
-          <div className="page" id="dataCompleted">
+          <div className="page" id="searchForm">
             <button className="prev" onClick={prevPage}>
               prev
             </button>
@@ -47,7 +49,7 @@ const Pokemons = () => {
           </div>
           <div className="container">
             {pokemons.length ? (
-              filteredPokemons().map((p) => {
+              filteredPokemons()?.map((p) => {
                 return (
                   <div key={p.id} className="pokemon">
                     <Link to={`/${p.id}/detail`}>
@@ -56,7 +58,7 @@ const Pokemons = () => {
                         <img src={p.image} alt={p.name} />
                       </div>
                       <div className="mapTypes">
-                        {p.types.map((t) => {
+                        {p.types?.map((t) => {
                           return <h4 key={p.types.indexOf(t) + 1}>{t}</h4>;
                         })}
                       </div>
@@ -65,13 +67,21 @@ const Pokemons = () => {
                 );
               })
             ) : (
-              <div>Pokemons are coming...</div>
+              <div className="wait">Pokemons are coming...</div>
             )}
           </div>
         </div>
       </div>
     );
   }
+  // if (typeof pokemons === "string") {
+  //   return (
+  //     <div>
+  //       <h3>Pokemon not found!</h3>
+  //     </div>
+  //   );
+  // }
+
   return (
     <div className="container">
       <div key={pokemons.id} className="pokemon">
@@ -81,7 +91,7 @@ const Pokemons = () => {
             <img src={pokemons.image} alt={pokemons.name} />
           </div>
           <div className="mapTypes">
-            {pokemons.types.map((t) => {
+            {pokemons.types?.map((t) => {
               return <h4 key={pokemons.types.indexOf(t) + 1}>{t}</h4>;
             })}
           </div>

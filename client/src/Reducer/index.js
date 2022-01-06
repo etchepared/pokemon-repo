@@ -16,37 +16,59 @@ export const Reducer = (state = initialState, action) => {
         // first: action.payload[0],
       };
 
-    case "SORT_BY_NAME":
-      let orderedCatchedPokemons = [...state.catchedPokemon];
-      orderedCatchedPokemons = orderedCatchedPokemons.sort((a, b) => {
-        if (a.name < b.name) {
-          return action.payload === "A-Z" ? -1 : 1;
-        }
-        if (a.name > b.name) {
-          return action.payload === "A-Z" ? 1 : -1;
-        }
-        return 0;
-      });
-      return {
-        ...state,
-        catchedPokemon: orderedCatchedPokemons,
-        // first: orderedCatchedPokemons[0],
-      };
+    // case "SORT_BY_NAME":
+    //   let orderedCatchedPokemons = [...state.catchedPokemon];
+    //   orderedCatchedPokemons = orderedCatchedPokemons.sort((a, b) => {
+    //     if (a.name < b.name) {
+    //       return action.payload === "A-Z" ? -1 : 1;
+    //     }
+    //     if (a.name > b.name) {
+    //       return action.payload === "A-Z" ? 1 : -1;
+    //     }
+    //     return 0;
+    //   });
+    //   return {
+    //     ...state,
+    //     catchedPokemon: orderedCatchedPokemons,
+    //     // first: orderedCatchedPokemons[0],
+    //   };
 
-    case "SORT_BY_STRENGTH":
-      let orderByStrength = [...state.catchedPokemon];
-      orderByStrength = orderByStrength.sort((a, b) => {
+    // case "SORT_BY_STRENGTH":
+    //   let orderByStrength = [...state.catchedPokemon];
+    //   orderByStrength = orderByStrength.sort((a, b) => {
+    //     if (action.payload === "MENOR") {
+    //       return a.strength - b.strength;
+    //     }
+    //     //if (action.payload === "MAYOR") {
+    //     return b.strength - a.strength;
+    //     //}
+    //   });
+    //   return {
+    //     ...state,
+    //     catchedPokemon: orderByStrength,
+    //     //first: orderByStrength[0],
+    //   };
+
+    case "SORT_POKEMONS":
+      let sortCatchedPokemons = [...state.catchedPokemon];
+      sortCatchedPokemons = sortCatchedPokemons.sort((a, b) => {
+        if (action.payload === "A-Z") {
+          return a.name > b.name;
+        }
+        if (action.payload === "Z-A") {
+          return a.name < b.name;
+        }
         if (action.payload === "MENOR") {
           return a.strength - b.strength;
         }
-        //if (action.payload === "MAYOR") {
-        return b.strength - a.strength;
-        //}
+        if (action.payload === "MAYOR") {
+          return b.strength - a.strength;
+        }
+        return (sortCatchedPokemons = [...state.catchedPokemon]);
       });
       return {
         ...state,
-        catchedPokemon: orderByStrength,
-        //first: orderByStrength[0],
+        catchedPokemon: sortCatchedPokemons,
       };
 
     case "CATCH_POKEMON":

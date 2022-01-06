@@ -73,6 +73,7 @@ export default function AddPokemon() {
         types: [],
       });
       //window.location.href = "http://localhost:3000/home";
+      //window.location.href = "http://localhost:3000/create";
     } catch (error) {
       alert("Pokemon creation failed.");
     }
@@ -190,18 +191,18 @@ export default function AddPokemon() {
           <div id="bottom">
             <label>Type: </label>
             <div className="typesBoxs">
-              {allTypes.map((t, index) => {
+              {allTypes?.map((t, index) => {
                 return (
                   <div key={t} className="checkbag">
                     <label className="types">
                       <div className="checkbox">
                         <input
-                          onChange={onTypeChange}
-                          type="checkbox"
+                          id="checkButton"
+                          onClick={onTypeChange}
+                          type="button"
                           key={index}
                           value={[t]}
                         />
-                        {t}
                       </div>
                     </label>
                   </div>
@@ -218,7 +219,7 @@ export default function AddPokemon() {
                 <img src={hand} alt={myPokemon.name} />
               </div>
               <div className="mapTypes">
-                {myPokemon.types.map((t) => {
+                {myPokemon.types?.map((t) => {
                   return <h4 key={myPokemon.types.indexOf(t) + 1}>{t}</h4>;
                 })}
               </div>

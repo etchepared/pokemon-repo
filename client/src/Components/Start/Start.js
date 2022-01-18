@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setPokemons, setTypes } from "../../Actions";
-import cerrada from "../MyImages/pokeabierta.png"
 import "./start.css";
 
 const Start = () => {

@@ -1,31 +1,19 @@
-import { React, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { React, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setPokemons } from "../../Actions";
 
 import "./pokemons.css";
 
 const Pokemons = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const dispatch = useDispatch();
 
   const pokemons = useSelector((store) => {
-    return store.catchedPokemon || store.trappedPokemons;
-  }); // trae del store la info que está dentro del estado trappedPokemons del reducer
-
-  // useEffect(() => {
-  //   dispatch(setPokemons());
-  // }, [dispatch, pokemons]);
-  // console.log(pokemons);
-  if (!pokemons) {
-    return () => alert("Pokemon not found");
-  }
+    return store.filteredPokemons || store.existingPokemons;
+  }); // trae del store la info que está dentro del estado existingPokemons del reducer
 
   if (Array.isArray(pokemons)) {
     const nextPage = () => {
-      //console.log(pokemons.length);
       if (currentPage + 12 < pokemons.length - 1) {
-        //console.log(currentPage);
         setCurrentPage(currentPage + 12);
       }
     };
@@ -35,7 +23,6 @@ const Pokemons = () => {
     const filteredPokemons = () => {
       return pokemons.slice(currentPage, currentPage + 12);
     };
-    // console.log(filteredPokemons);
     return (
       <div>
         <div className="all">
@@ -73,32 +60,11 @@ const Pokemons = () => {
         </div>
       </div>
     );
+  } else {
+    return (
+      <div className="notFound">Pokemon not found</div>
+    )
   }
-  // if (typeof pokemons === "string") {
-  //   return (
-  //     <div>
-  //       <h3>Pokemon not found!</h3>
-  //     </div>
-  //   );
-  // }
-
-  return (
-    <div className="container">
-      <div key={pokemons.id} className="pokemon">
-        <Link to={`/${pokemons.id}/detail`}>
-          <h3>{pokemons.name}</h3>
-          <div className="pokemonImage">
-            <img src={pokemons.image} alt={pokemons.name} />
-          </div>
-          <div className="mapTypes">
-            {pokemons.types?.map((t) => {
-              return <h4 key={pokemons.types.indexOf(t) + 1}>{t}</h4>;
-            })}
-          </div>
-        </Link>
-      </div>
-    </div>
-  );
 };
 
 export default Pokemons;

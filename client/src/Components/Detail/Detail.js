@@ -67,10 +67,10 @@ const Detail = () => {
   const { id } = useParams();
 
   let pokemon = useSelector((store) => {
-    return store.trappedPokemons;
+    return store.existingPokemons;
   });
   let pokemon2 = useSelector((store) => {
-    return store.catchedPokemon;
+    return store.filteredPokemons;
   });
   if (pokemon2) {
     pokemon = pokemon.concat(pokemon2);

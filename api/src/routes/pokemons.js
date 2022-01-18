@@ -3,98 +3,95 @@ const { Pokemon, Type } = require("../db");
 const axios = require("axios");
 const router = Router();
 const { Sequalize, Op } = require("sequelize");
-//IMPORTANTE: Dentro de la Ruta Principal mostrar pokemons traidos de la API y la base de datos. Limitar el resultado a 40 pokemons.
-router.get("/pokemons", async (req, res, next) => {
-  //Imagen Nombre Tipos
 
+router.get("/pokemons", async (req, res, next) => {  
   if (req.query.name) {
     const { name } = req.query;
     const lowerCaseName = name.toLowerCase();
 
     try {
-      const myPokemons = await Pokemon.findOne({
+      const queryPokemonDB = await Pokemon.findOne({
         where: {
           name: { [Op.like]: lowerCaseName },
         },
         include: [{ model: Type, attributes: ["name"] }],
       });
 
-      if (myPokemons) {
+      if (queryPokemonDB) {
         return res.json({
-          name: myPokemons.name,
-          id: myPokemons.id,
-          hp: myPokemons.hp,
-          strength: myPokemons.strength,
-          defense: myPokemons.defense,
-          speed: myPokemons.speed,
-          height: myPokemons.height,
-          weight: myPokemons.weight,
-          image: myPokemons.image,
-          types: myPokemons.types.map((p) => {
+          name: queryPokemonDB.name,
+          id: queryPokemonDB.id,
+          hp: queryPokemonDB.hp,
+          strength: queryPokemonDB.strength,
+          defense: queryPokemonDB.defense,
+          speed: queryPokemonDB.speed,
+          height: queryPokemonDB.height,
+          weight: queryPokemonDB.weight,
+          image: queryPokemonDB.image,
+          types: queryPokemonDB.types.map((p) => {
             return p.name;
           }),
         });
       }
 
-      const pokemonChosen = await axios
+      const queryPokemonAPI = await axios
         .get(`https://pokeapi.co/api/v2/pokemon/${lowerCaseName}`)
         .then((d) => d.data)
         .catch((error) => error);
 
-      const pokeInfo = {
-        id: pokemonChosen.id,
-        name: pokemonChosen.name,
-        image: pokemonChosen.sprites.other["official-artwork"]["front_default"],
-        types: pokemonChosen.types.map((p) => {
+      const selectedPokemon = {
+        id: queryPokemonAPI.id,
+        name: queryPokemonAPI.name,
+        image: queryPokemonAPI.sprites.other["official-artwork"]["front_default"],
+        types: queryPokemonAPI.types.map((p) => {
           return p.type.name;
         }),
-        hp: pokemonChosen.stats[0].base_stat,
-        strength: pokemonChosen.stats[1].base_stat,
-        defense: pokemonChosen.stats[2].base_stat,
-        speed: pokemonChosen.stats[5].base_stat,
-        height: pokemonChosen.height,
-        weight: pokemonChosen.weight,
+        hp: queryPokemonAPI.stats[0].base_stat,
+        strength: queryPokemonAPI.stats[1].base_stat,
+        defense: queryPokemonAPI.stats[2].base_stat,
+        speed: queryPokemonAPI.stats[5].base_stat,
+        height: queryPokemonAPI.height,
+        weight: queryPokemonAPI.weight,
       };
-      return res.status(200).json(pokeInfo);
+      return res.status(200).json(selectedPokemon);
     } catch (error) {
       res.status(400).send({ error: "Pokemon not found" });
     }
   }
   try {
-    const apiPokemons = await axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=40")
+    const apiPokemonsURLs = await axios
+      .get("https://pokeapi.co/api/v2/pokemon?limit=10")
       .then((d) => d.data.results);
 
-    const pokeData = apiPokemons.map(async (p) => {
-      const temp = await axios.get(p.url);
-      if (temp) {
-        const pokeInfo = {
-          id: temp.data.id,
-          name: temp.data.name,
-          image: temp.data.sprites.other["official-artwork"]["front_default"],
-          types: temp.data.types.map((p) => {
+    const apiPokemons = apiPokemonsURLs.map(async (p) => {
+      const mapedPokemon = await axios.get(p.url);
+      if (mapedPokemon) {
+        const allAPIPokemons = {
+          id: mapedPokemon.data.id,
+          name: mapedPokemon.data.name,
+          image: mapedPokemon.data.sprites.other["official-artwork"]["front_default"],
+          types: mapedPokemon.data.types.map((p) => {
             return p.type.name;
           }),
-          hp: temp.data.stats[0].base_stat,
-          strength: temp.data.stats[1].base_stat,
-          defense: temp.data.stats[2].base_stat,
-          speed: temp.data.stats[5].base_stat,
-          height: temp.data.height,
-          weight: temp.data.weight,
+          hp: mapedPokemon.data.stats[0].base_stat,
+          strength: mapedPokemon.data.stats[1].base_stat,
+          defense: mapedPokemon.data.stats[2].base_stat,
+          speed: mapedPokemon.data.stats[5].base_stat,
+          height: mapedPokemon.data.height,
+          weight: mapedPokemon.data.weight,
         };
-        return pokeInfo;
+        return allAPIPokemons;
       }
     });
 
-    const pokeResults = await Promise.all(pokeData);
+    const apiPokemonsRes = await Promise.all(apiPokemons);
 
     const dbPokemons = await Pokemon.findAll({
       include: [{ model: Type, attributes: ["name"] }],
     });
-    //console.log(dbPokemons);
 
     if (dbPokemons.length) {
-      const myPokemons = dbPokemons.map((p) => {
+      const createdPokemons = dbPokemons.map((p) => {
         return {
           id: p.id,
           image: p.image,
@@ -111,10 +108,10 @@ router.get("/pokemons", async (req, res, next) => {
         };
       });
 
-      return res.status(200).json(pokeResults.concat(myPokemons));
+      return res.status(200).json(apiPokemonsRes.concat(createdPokemons));
     }
 
-    return res.status(200).json(pokeResults);
+    return res.status(200).json(apiPokemonsRes);
   } catch (error) {
     next(error);
   }
@@ -122,51 +119,51 @@ router.get("/pokemons", async (req, res, next) => {
 
 router.get("/pokemons/:idPokemon", async (req, res, next) => {
   const { idPokemon } = req.params;
-  //idPokemon.length > 0 && idPokemon.length < 4;
+  
   try {
-    // if (idPokemon > 0 && idPokemon < 899) {
+    
     if (!isNaN(idPokemon)) {
-      const pokemonChosen = await axios
+      const apiPokemon = await axios
         .get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
         .then((d) => d.data);
 
-      const pokeInfo = {
-        id: pokemonChosen.id,
-        name: pokemonChosen.name,
-        image: pokemonChosen.sprites.other["dream_world"]["front_default"],
-        types: pokemonChosen.types.map((p) => p.type.name),
-        hp: pokemonChosen.stats[0].base_stat,
-        strength: pokemonChosen.stats[1].base_stat,
-        defense: pokemonChosen.stats[2].base_stat,
-        speed: pokemonChosen.stats[5].base_stat,
-        height: pokemonChosen.height,
-        weight: pokemonChosen.weight,
+      const selectedPokemon = {
+        id: apiPokemon.id,
+        name: apiPokemon.name,
+        image: apiPokemon.sprites.other["dream_world"]["front_default"],
+        types: apiPokemon.types.map((p) => p.type.name),
+        hp: apiPokemon.stats[0].base_stat,
+        strength: apiPokemon.stats[1].base_stat,
+        defense: apiPokemon.stats[2].base_stat,
+        speed: apiPokemon.stats[5].base_stat,
+        height: apiPokemon.height,
+        weight: apiPokemon.weight,
       };
-      return res.json(pokeInfo);
+      return res.json(selectedPokemon);
     }
-    const myPokemons = await Pokemon.findOne({
+    const dbPokemon = await Pokemon.findOne({
       where: {
         id: idPokemon,
       },
       include: [{ model: Type, attributes: ["name"] }],
     });
-    if (myPokemons) {
+    if (dbPokemon) {
       return res.json({
-        name: myPokemons.name,
-        id: myPokemons.id,
-        hp: myPokemons.hp,
-        strength: myPokemons.strength,
-        defense: myPokemons.defense,
-        speed: myPokemons.speed,
-        height: myPokemons.height,
-        weight: myPokemons.weight,
-        image: myPokemons.image,
-        types: myPokemons.types.map((p) => {
+        name: dbPokemon.name,
+        id: dbPokemon.id,
+        hp: dbPokemon.hp,
+        strength: dbPokemon.strength,
+        defense: dbPokemon.defense,
+        speed: dbPokemon.speed,
+        height: dbPokemon.height,
+        weight: dbPokemon.weight,
+        image: dbPokemon.image,
+        types: dbPokemon.types.map((p) => {
           return p.name;
         }),
       });
     }
-    return res.statut(404).send("Id not found");
+    return res.status(404).send("Id not found");
   } catch (error) {
     next(error);
   }
@@ -177,7 +174,7 @@ router.post("/pokemons/create", async (req, res, next) => {
     const { name, image, types, hp, strength, defense, speed, height, weight } =
       req.body;
 
-    const myPokemon = await Pokemon.create({
+    const createPokemon = await Pokemon.create({
       name: name.toLowerCase(),
       image:
         image ||
@@ -196,10 +193,10 @@ router.post("/pokemons/create", async (req, res, next) => {
         },
         defaults: { name: t },
       });
-      myPokemon.addType(postTypes);
+      createPokemon.addType(postTypes);
     });
 
-    return res.status(201).send(myPokemon);
+    return res.status(201).send(createPokemon);
   } catch (error) {
     next(error);
   }

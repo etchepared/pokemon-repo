@@ -79,6 +79,14 @@ a:active:hover {
 
 .wait {
   color: antiquewhite;
+  font-size: x-large;
+}
+
+.notFound {
+  color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  font-size: x-large;
 }
 
 .mapTypes {

@@ -49,7 +49,7 @@ export const filterCreated = (selected) => {
   };
 };
 
-export const selectedPokemon = (selected) => async (dispatch) => {
+export const selectedPokemon = (selected) => (dispatch) => {
   axios
     .get(`http://localhost:3001/pokemons/${selected}`)
     .then((res) =>
@@ -63,7 +63,7 @@ export const selectedPokemon = (selected) => async (dispatch) => {
     });
 };
 
-export const setTypes = (payload) => async (dispatch) => {
+export const setTypes = (payload) => (dispatch) => {
   axios.get("http://localhost:3001/types").then((res) =>
     dispatch({
       type: "POKEMON_TYPES",

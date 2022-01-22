@@ -40,13 +40,12 @@ export default function AddPokemon() {
     } else {
       setMyPokemon({
         ...myPokemon,
-        types: [...myPokemon.types.filter((el) => e.target.value != el)],
+        types: [...myPokemon.types.filter((el) => e.target.value !== el)],
       });
     }
   };
 
   async function onSubmit(e) {
-    // console.log(myPokemon);
     try {
       e.preventDefault();
       await axios.post("http://localhost:3001/pokemons/create", myPokemon);
@@ -80,7 +79,9 @@ export default function AddPokemon() {
   }
 
   return (
-    <form id="form" onSubmit={onSubmit}>
+    <form className="form" onSubmit={onSubmit}>
+      {/* El método match() se usa para obtener todas las ocurrencias de una
+      expresión regular dentro de una cadena */}
       {myPokemon.name.match(alphaExp) ? (
         <div id="dataCompleted">
           <button type="submit">My pokemon is ready!</button>

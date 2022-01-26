@@ -69,12 +69,13 @@ const Detail = () => {
   let pokemon = useSelector((store) => {
     return store.existingPokemons;
   });
-  let pokemon2 = useSelector((store) => {
-    return store.filteredPokemons;
-  });
-  if (pokemon2) {
-    pokemon = pokemon.concat(pokemon2);
-  }
+  // esto no me acuerdo para qué era:
+  // let pokemon2 = useSelector((store) => {
+  //   return store.filteredPokemons;
+  // });
+  // if (pokemon2) {
+  //   pokemon = pokemon.concat(pokemon2);
+  // }
 
   pokemon = pokemon.find((p) => p.id == id);
 

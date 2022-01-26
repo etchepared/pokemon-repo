@@ -1,8 +1,11 @@
 import React from "react";
 import ToHome from "../ToHome/ToHome";
+// import Create from "../Create/Create";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import CreateYours from "../MyImages/create.png";
+import CreateYours from "../MyImages/create.png"
+import "../Create/create.css";
+//import pokepedia from "../MyImages/pokepedia.png"
 import pokepedia from "../MyImages/HenryPokepedia.png";
 import { useLocation } from "react-router-dom";
 import Start from "../Start/Start";
@@ -32,11 +35,7 @@ const Navbar = () => {
             <div className="createNav">
               <div className="containerCreate">
                 <Link to="/create">
-                  <img
-                    id="create"
-                    src={CreateYours}
-                    alt="Create your Pokémon"
-                  />
+                  <img id="create" src={CreateYours} alt="Create your Pokémon"/>
                 </Link>
               </div>
             </div>

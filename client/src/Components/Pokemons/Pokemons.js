@@ -26,14 +26,26 @@ const Pokemons = () => {
     return (
       <div>
         <div className="all">
-          <div className="page" id="searchForm">
-            <button className="prev" onClick={prevPage}>
-              prev
-            </button>
-            <button className="next" onClick={nextPage}>
-              next
-            </button>
-          </div>
+          {currentPage !== 0 ? (
+            <div className="page" id="searchForm">
+              <button className="prev" onClick={prevPage}>
+                prev
+              </button>
+              {currentPage + 12 < pokemons.length - 1 && (
+                <button className="next" onClick={nextPage}>
+                  next
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="page" id="searchForm">
+              {currentPage + 12 < pokemons.length - 1 && (
+                <button className="next" onClick={nextPage}>
+                  next
+                </button>
+              )}
+            </div>
+          )}
           <div className="container">
             {pokemons.length ? (
               filteredPokemons()?.map((p) => {
@@ -57,13 +69,31 @@ const Pokemons = () => {
               <div className="wait">Pokemons are coming...</div>
             )}
           </div>
+          {currentPage !== 0 ? (
+            <div className="page" id="searchForm">
+              <button className="prev" onClick={prevPage}>
+                prev
+              </button>
+              {currentPage + 12 < pokemons.length - 1 && (
+                <button className="next" onClick={nextPage}>
+                  next
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="page" id="searchForm">
+              {currentPage + 12 < pokemons.length - 1 && (
+                <button className="next" onClick={nextPage}>
+                  next
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );
   } else {
-    return (
-      <div className="notFound">Pokemon not found</div>
-    )
+    return <div className="notFound">Pokemon not found</div>;
   }
 };
 

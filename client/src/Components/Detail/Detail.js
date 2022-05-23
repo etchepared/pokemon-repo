@@ -1,6 +1,7 @@
-import { React } from "react";
-import { useSelector } from "react-redux";
+import { React, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { selectedPokemon } from "../../Actions/index.js";
 import "./detail.css";
 
 const Detail = () => {
@@ -65,23 +66,21 @@ const Detail = () => {
   // });
 
   const { id } = useParams();
+  const dispatch = useDispatch();
 
-  let pokemon = useSelector((store) => {
-    return store.existingPokemons;
+  const pokemon = useSelector((store) => {
+    return store.detail;
   });
-  let pokemon2 = useSelector((store) => {
-    return store.filteredPokemons;
-  });
-  if (pokemon2) {
-    pokemon = pokemon.concat(pokemon2);
-  }
 
-  pokemon = pokemon.find((p) => p.id == id);
+  useEffect(() => {
+    dispatch(selectedPokemon(id));
+    return dispatch(selectedPokemon(-1));
+  }, [dispatch, id]);
 
   if (!pokemon) {
-    return <div className="error">Pokemon no encontrado</div>;
+    return <div className="error">Buscando pokemon...</div>;
   }
-  //console.log(pokemon);
+  console.log(pokemon);
   return (
     <div id="detailContainer" className="container">
       <div key={pokemon.id} id="detailcard" className="pokemon">
@@ -91,9 +90,10 @@ const Detail = () => {
             <img src={pokemon.image} alt={pokemon.name} />
           </div>
           <div className="mapTypes">
-            {pokemon.types.map((t) => {
-              return <h4 key={pokemon.types.indexOf(t) + 1}>{t}</h4>;
-            })}
+            {pokemon.types &&
+              pokemon.types.map((t) => {
+                return <h4 key={pokemon.types.indexOf(t) + 1}>{t}</h4>;
+              })}
           </div>
         </div>
         <div>

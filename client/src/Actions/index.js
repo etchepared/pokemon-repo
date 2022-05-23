@@ -9,6 +9,13 @@ export const setPokemons = (payload) => (dispatch) => {
   );
 };
 
+export const resetPokemons = (order) => {
+  return {
+    type: "RESET_POKEMONS",
+    payload: order,
+  };
+};
+
 export const sortPokemons = (order) => {
   return {
     type: "SORT_POKEMONS",
@@ -50,12 +57,20 @@ export const filterCreated = (selected) => {
 };
 
 export const selectedPokemon = (selected) => (dispatch) => {
+  if (selected < 0) {
+    dispatch({
+      type: "POKEMON_DETAIL",
+      payload: "Buscando pokemon...",
+    });
+    return;
+  }
   axios
     .get(`http://localhost:3001/pokemons/${selected}`)
     .then((res) =>
       dispatch({
         type: "POKEMON_DETAIL",
-        payload: res.data.id,
+        // payload: res.data.id,
+        payload: res.data,
       })
     )
     .catch((error) => {

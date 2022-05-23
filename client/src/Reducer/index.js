@@ -1,7 +1,8 @@
 const initialState = {
-  existingPokemons: [], 
+  existingPokemons: [],
   filteredPokemons: null,
   types: [],
+  detail: ["Aquí no hay nada"],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -13,14 +14,23 @@ export const Reducer = (state = initialState, action) => {
         filteredPokemons: action.payload,
       };
 
+    case "RESET_POKEMONS":
+      return {
+        ...state,
+        existingPokemons: [],
+        filteredPokemons: null,
+      };
+
     case "SORT_POKEMONS":
       let sortPokemons = [...state.filteredPokemons];
       sortPokemons = sortPokemons.sort((a, b) => {
-        if (action.payload === "A-Z") {
-          return a.name > b.name;
-        }
-        if (action.payload === "Z-A") {
-          return a.name < b.name;
+        if (action.payload === "A-Z" || action.payload === "Z-A") {
+          if (a.name < b.name) {
+            return action.payload === "A-Z" ? -1 : 1;
+          }
+          if (a.name > b.name) {
+            return action.payload === "A-Z" ? 1 : -1;
+          }
         }
         if (action.payload === "MENOR") {
           return a.strength - b.strength;
@@ -82,16 +92,17 @@ export const Reducer = (state = initialState, action) => {
       };
 
     case "POKEMON_DETAIL":
-      if (state.filteredPokemons) {
-        let detail = [...state.existingPokemons, ...state.filteredPokemons];
-        detail = detail.find((p) => p.id === action.payload);
+      // if (state.filteredPokemons) {
+      //   let detail = [...state.existingPokemons, ...state.filteredPokemons];
+      //   detail = detail.find((p) => p.id === action.payload);
 
-        return { ...state, filteredPokemons: detail };
-      }
-      let detail = [...state.existingPokemons];
-      detail = detail.find((p) => p.id === action.payload);
+      //   return { ...state, filteredPokemons: detail };
+      // }
+      // let detail = [...state.existingPokemons];
+      // detail = detail.find((p) => p.id === action.payload);
 
-      return { ...state, filteredPokemons: detail };
+      // return { ...state, filteredPokemons: detail };
+      return { ...state, detail: action.payload };
 
     case "POKEMON_TYPES":
       return { ...state, types: action.payload };

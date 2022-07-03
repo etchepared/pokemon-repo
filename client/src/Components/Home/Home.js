@@ -8,6 +8,7 @@ import {
   filterByType,
   filterCreated,
   sortPokemons,
+  setPokemons,
   selectedPokemon,
   resetPokemons,
 } from "../../Actions/index.js";
@@ -214,7 +215,14 @@ const Home = () => {
       </div>
     );
   } else {
-    return <div className="notFound">Pokemon not found</div>;
+    return (
+      <div>
+        <div className="notFound">Pokemon not found</div>
+        <button id="select" onClick={() =>
+                  (window.location.href = "http://localhost:3000/home")
+                }>Return to Home</button>
+      </div> 
+    );
   }
 };
 
